@@ -14,7 +14,7 @@ relativeProportionOfSites = function(sampleName, BSDTsplit) {
   message(sampleName)
   result = vector()
   for (y in names(BSDTsplit)) {
-    result[y] = merge(sdt[[sampleName]], sdt[[y]])[,log(sum(IM.x/.N)/sum(IM.y/.N))]
+    result[y] = merge(BSDTsplit[[sampleName]], BSDTsplit[[y]])[,log(sum(IM.x/.N)/sum(IM.y/.N))]
   }
   return(result)
 }
