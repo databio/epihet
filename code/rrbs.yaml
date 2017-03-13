@@ -1,0 +1,58 @@
+resources:
+  # paths to reference genomes, adapter files, and other required shared data
+  resources: $RESOURCES
+  genomes: $RESOURCES/genomes/
+  adapter_file: $RESOURCES/adapters/RRBS_adapters.fa
+  spikein_genome: meth_spikein_k1_k3
+
+tools:
+  # paths to required tools
+  python: python
+  java: java
+  samtools: samtools
+  picard: $PICARD/picard.jar
+  trimmomatic: $TRIMMOMATIC
+  bowtie1: bowtie
+  bowtie2: bowtie2
+  bed2bigBed: bedToBigBed
+  bed2bigWig: bedGraphToBigWig
+  bismark: bismark
+  deduplicate_bismark: eduplicate_bismark
+  bsmap: bsmap
+  biseq_tools: $RESOURCES/tools
+
+parameters:
+  # parameters passed to bioinformatic tools, subclassed by tool
+
+  trimmomatic:
+    memory: 4  # memory allocated to java VM in GB
+    threads: 4
+    illuminaclip: ":2:40:7 SLIDINGWINDOW:4:15 MAXINFO:20:0.50 MINLEN:18"   # default
+    #illuminaclip: ":2:40:7 SLIDINGWINDOW:4:15 MAXINFO:20:0.50 CROP:50 MINLEN:18"   # with cropping
+
+  bsmap:
+    rrbs_mapping_mode: "-D C-CGG -D T-CGA"    # support for MSP1 and TAQ1 digestion enzymes, set to " " to disable!
+    equal_best_hits: 100          # number of equal best hits to count; smaller will be faster
+    mismatch_rate: 0.08           # if this value is between 0 and 1, it's interpreted as the mismatch rate w.r.t to the read length
+    report_repeat: 1              # how to report repeat hits, 0=none(unique hit/pair only); 1=random one, default:1
+    processors: 4                 # number of processors to use
+    map_to_strands: 0             # 0 to map only to forward strands: ++ and -+; 1 to map to all four strands: ++, +-, -+, --
+    seed_size:  12                # fixed to 12 for RRBS mode
+    random_number_seed: 0         # seed for random number generation when selecting position for multimappers; for reproducible results
+    filter: 5                     # filter low-quality reads containing >n Ns, default=5
+    quality_threshold: 0          # quality threshold in trimming the 3' end of reads [0-40], defaults to 0 (no trimming)
+    minimal_insert_size: 28       # option for pair-end alignment: minimal insert size allowed, default=28
+    maximal_insert_size: 500      # option for pair-end alignment: maximal insert size allowed, default=500
+
+  biseq:
+    restrictionSite: "y-CG_R" # generic pattern for c-CGG (MSP1) and t-CGA (TAQ1)
+    minFragmentLength: 20
+    maxFragmentLength: 1000
+    pfStatus: "All"
+    maxMismatches: 0.1
+    baseQualityScoreC: 20
+    baseQualityScoreNextToC: 10
+    timeDelay: 0
+    genomeFraction: 50
+    smartWindows: 250000
+    maxProcesses: 4
