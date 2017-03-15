@@ -20,4 +20,7 @@ dat <- BSreadBiSeq("data/RRBS_cpgMethylation_EWS_L10.bed")
 # have to setSharedCacheDir()
 setSharedCacheDir("cache")
 
-calculatePIM(dat)
+imres <- calculatePIM(dat)
+
+# prop im?
+sum(imres$IM == TRUE) / nrow(imres)
