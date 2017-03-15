@@ -73,7 +73,7 @@ calculatePIM = function(BSDT) {
 	cachedBinomialIntervals = cachedBinomialIntervals95
 
 	# Make the memory use smaller by eliminating unnecessary columns
-	allCg[,sampleName:=NULL]
+	BSDT[,sampleName:=NULL]
 	cachedBinomialIntervals[, method:=NULL]
 	cachedBinomialIntervals[, mean:=NULL]
 	cachedBinomialIntervals[, shape1:=NULL]
@@ -82,7 +82,7 @@ calculatePIM = function(BSDT) {
 	cachedBinomialIntervals
 
 	# Calculate the credibility interval
-	CI = BScredIntervalCache(allCg, cachedBinomialIntervals)
+	CI = BScredIntervalCache(BSDT, cachedBinomialIntervals)
 
 	setkey(CI, "chr", "start")
 
