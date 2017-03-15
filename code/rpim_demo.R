@@ -15,7 +15,7 @@ library(simpleCache)
 # BScredInterval
 # BScredIntervalCache
 
-dat <- BSreadBiSeq("data/RRBS_cpgMethylation_EWS_L10.bed")
+dat <- BSreadBiSeq("../data/RRBS_cpgMethylation_EWS_L10.bed")
 
 # have to setSharedCacheDir()
 setSharedCacheDir("cache")
