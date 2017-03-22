@@ -29,7 +29,13 @@ calculatePIM = function(BSDT) {
   # We define a site as IM (Intermediate Methylation) if its credibility
   # interval is not completely below .25, or above .75. Other sites are
   # more likely to be either 0 or 1 (or very close).
-  IM = CI[, list(chr, start, id, IM = !(upper < .25 | lower > .75)) ]
+
+  # only keep columns if they exist in input data
+  IM = CI[, IM := !(upper < .25 | lower > .75) ]
+  keepCols = intersect(colnames(CI), c("chr", "start", "id", "IM"))
+
+  IM = CI[, ..keepCols]
+  #IM = CI[, list(chr, start, id, IM = !(upper < .25 | lower > .75)) ]
 
   # memory hog; clean up!
   rm(CI); rm(BSDT); gc()
