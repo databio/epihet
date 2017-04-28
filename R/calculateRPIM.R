@@ -10,11 +10,19 @@
 #' the proportion of sites for.
 #' @param BSDTsplit A BSDT (bisulfite data.table) that has been split with
 #' splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
-relativeProportionOfSites = function(sampleName, BSDTsplit) {
+calculateRPIM = function(sampleName, BSDTsplit) {
   message(sampleName)
   result = vector()
+
+  sampleBaseline = genIM(BSDTsplit[[sampleName]])
+
   for (y in names(BSDTsplit)) {
-    result[y] = merge(BSDTsplit[[sampleName]], BSDTsplit[[y]])[,log(sum(IM.x/.N)/sum(IM.y/.N))]
+
+    sampleRelative = genIM(BSDTsplit[[y]])
+    result[y] = merge(sampleBaseline, sampleRelative)[,log(sum(IM.x/.N)/sum(IM.y/.N))]
+
+    # result[y] = merge(BSDTsplit[[sampleName]], BSDTsplit[[y]])[,log(sum(IM.x/.N)/sum(IM.y/.N))]
+
   }
   return(result)
 }

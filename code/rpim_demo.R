@@ -25,8 +25,19 @@ imres <- calculatePIM(dat)
 # prop im?
 sum(imres$IM == TRUE) / nrow(imres)
 
+###############################
 
+# relative proportion of sites
 
+dat2 = BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T133.bed")
+
+alldat = rbind(dat,dat2)
+
+allsplitdat = split(alldat, alldat$sampleName)
+
+# relativeProportionOfSites("RRBS_cpgMethylation_EWS_L10", allsplitdat)
+
+calculateRPIM("RRBS_cpgMethylation_EWS_L10", allsplitdat)
 
 # Rivanna demo:
 install.packages("~/code/RPIM", repos=NULL)
