@@ -14,11 +14,11 @@ calculateRPIM = function(sampleName, BSDTsplit) {
   message(sampleName)
   result = vector()
 
-  sampleBaseline = genIM(BSDTsplit[[sampleName]])
+  sampleBaseline = prepIM(BSDTsplit[[sampleName]])
 
   for (y in names(BSDTsplit)) {
 
-    sampleRelative = genIM(BSDTsplit[[y]])
+    sampleRelative = prepIM(BSDTsplit[[y]])
     result[y] = merge(sampleBaseline, sampleRelative)[,log(sum(IM.x/.N)/sum(IM.y/.N))]
 
     # result[y] = merge(BSDTsplit[[sampleName]], BSDTsplit[[y]])[,log(sum(IM.x/.N)/sum(IM.y/.N))]

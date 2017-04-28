@@ -1,6 +1,6 @@
-#' Given a Bisulfite data.table (BSDT), generates the intermediate methylation (IM) table
+#' Given a Bisulfite data.table (BSDT), prepares the intermediate methylation (IM) table
 #' @export
-genIM = function(BSDT) {
+prepIM = function(BSDT) {
 
   # Grab (or create) the binomial confidence intervals
   simpleCache("cachedBinomialIntervals95", {

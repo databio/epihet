@@ -7,7 +7,7 @@
 
 calculatePIM = function(BSDT) {
 
-  imtab = genIM(BSDT)
+  imtab = prepIM(BSDT)
 
   sum(imtab$IM == TRUE) / nrow(imtab)
 
