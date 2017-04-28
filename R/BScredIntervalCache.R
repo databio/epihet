@@ -1,11 +1,11 @@
 BScredIntervalCache = function(BSDT, cachedBinomialIntervals, hitCol="hitCount", readCol="readCount", confLevel=.95){
-  storeKey = key(BSDT)
+  storeKey = data.table::key(BSDT)
 
   if(length(storeKey) != 2) {
 
     message("Key temporarily set to ", hitCol, " and ", readCol)
 
-    setkeyv(BSDT, c(hitCol, readCol))
+    data.table::setkeyv(BSDT, c(hitCol, readCol))
 
   }
 
@@ -15,7 +15,7 @@ BScredIntervalCache = function(BSDT, cachedBinomialIntervals, hitCol="hitCount",
 
   BSDT = cachedBinomialIntervals[BSDT,]
 
-  setnames(BSDT,c("x", "n"), c("hitCount", "readCount"))
+  data.table::setnames(BSDT,c("x", "n"), c("hitCount", "readCount"))
 
   #And otherwise, count directly.
 

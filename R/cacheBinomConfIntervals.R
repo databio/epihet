@@ -8,9 +8,9 @@ cacheBinomConfIntervals = function(maxHits, maxTotal, confLevel) {
 
   conf = binom::binom.bayes(allPossibleCombinations[,"hits"], allPossibleCombinations[,"total"], conf.level = confLevel, tol=.005, type="central")
 
-  confdt = data.table(conf)
+  confdt = data.table::data.table(conf)
 
-  setkey(confdt, "x", "n")
+  data.table::setkey(confdt, "x", "n")
 
   return(confdt)
 }
