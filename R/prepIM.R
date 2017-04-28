@@ -32,9 +32,6 @@ prepIM = function(BSDT) {
   keepCols = intersect(colnames(CI), c("chr", "start", "id", "IM"))
 
   IM = CI[, ..keepCols]
-  #IM = CI[, list(chr, start, id, IM = !(upper < .25 | lower > .75)) ]
 
-  # memory hog; clean up!
-  rm(CI); rm(BSDT); gc()
-  return(IM)
+  IM
 }
