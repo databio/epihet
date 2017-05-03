@@ -1,4 +1,5 @@
-BScredIntervalCache = function(BSDT, cachedBinomialIntervals, hitCol="hitCount", readCol="readCount", confLevel=.95){
+#' @export
+BScredIntervalCache = function(BSDT, cachedBinomialIntervals, hitCol="methylCount", readCol="coverage", confLevel=.95){
   storeKey = data.table::key(BSDT)
 
   if(length(storeKey) != 2) {
@@ -15,7 +16,8 @@ BScredIntervalCache = function(BSDT, cachedBinomialIntervals, hitCol="hitCount",
 
   BSDT = cachedBinomialIntervals[BSDT,]
 
-  data.table::setnames(BSDT,c("x", "n"), c("hitCount", "readCount"))
+  # data.table::setnames(BSDT,c("x", "n"), c("hitCount", "readCount"))
+  data.table::setnames(BSDT,c("x", "n"), c(hitCol, readCol))
 
   #And otherwise, count directly.
 
