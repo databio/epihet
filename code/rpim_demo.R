@@ -1,10 +1,9 @@
-library(data.table)
-library(simpleCache)
+# library(data.table)
+# library(simpleCache)
 
 # from MIRA
 # parseBiseq
 # BSreadBiSeq
-# extractSampleName ... same as tools::file_path_sans_ext()
 # lapplyAlias
 # setLapplyAlias
 
@@ -15,24 +14,24 @@ library(simpleCache)
 # BScredInterval
 # BScredIntervalCache
 
-dat <- BSreadBiSeq("data/RRBS_cpgMethylation_EWS_L10.bed")
+library(RPIM)
 
+dat <- MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_L10.bed")
+# dat2 <- BSreadBiSeq("data/RRBS_cpgMethylation_EWS_L10.bed")
 # have to setSharedCacheDir()
-setSharedCacheDir("cache")
+simpleCache::setSharedCacheDir("cache")
 
 imres <- calculatePIM(dat)
-
-# prop im?
-sum(imres$IM == TRUE) / nrow(imres)
 
 ###############################
 
 # relative proportion of sites
 
-dat2 = BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T133.bed")
+dat2 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T133.bed")
+dat3 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T111.bed")
+dat4 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T120.bed")
 
-alldat = rbind(dat,dat2)
-
+alldat = rbind(dat,dat2, dat3, dat4)
 allsplitdat = split(alldat, alldat$sampleName)
 
 # relativeProportionOfSites("RRBS_cpgMethylation_EWS_L10", allsplitdat)
