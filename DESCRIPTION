@@ -11,5 +11,5 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
-  binom, data.table
+  binom, data.table, simpleCache
 RoxygenNote: 6.0.1
