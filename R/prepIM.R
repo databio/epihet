@@ -3,13 +3,13 @@
 prepIM = function(BSDT) {
 
   # Grab (or create) the binomial confidence intervals
-  simpleCache("cachedBinomialIntervals95", {
+  simpleCache::simpleCache("cachedBinomialIntervals95", {
     cachedBinomialIntervals95 = cacheBinomConfIntervals(2000, 2000, .95)
   }, cacheDir = getOption("RESOURCES.RCACHE"))
   cachedBinomialIntervals = cachedBinomialIntervals95
 
   # Make the memory use smaller by eliminating unnecessary columns
-  BSDT[,sampleName:=NULL]
+  # BSDT[,sampleName:=NULL]
   cachedBinomialIntervals[, method:=NULL]
   cachedBinomialIntervals[, mean:=NULL]
   cachedBinomialIntervals[, shape1:=NULL]
