@@ -1,5 +1,5 @@
-devtools::install_github("databio/MIRA")
-devtools::install_github("databio/simpleCache")
+# devtools::install_github("databio/MIRA")
+# devtools::install_github("databio/simpleCache")
 
 library(RPIM)
 
@@ -23,6 +23,10 @@ allsplitdat = split(alldat, alldat$sampleName)
 
 calculateRPIM("RRBS_cpgMethylation_EWS_L10", allsplitdat)
 
+x = sapply(names(allsplitdat), calculateRPIM, allsplitdat)
+diag(x) = NA
+colMeans(x, na.rm = T)
+
 # Rivanna demo:
 # install.packages("~/code/RPIM", repos=NULL)
 # library(RPIM)
@@ -32,3 +36,6 @@ calculateRPIM("RRBS_cpgMethylation_EWS_L10", allsplitdat)
 # imres <- calculatePIM(dat)
 # imres
 # sum(imres$IM == TRUE) / nrow(imres)
+
+
+
