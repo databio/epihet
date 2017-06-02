@@ -21,11 +21,7 @@ dat4 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T120.bed")
 alldat = rbind(dat,dat2, dat3, dat4)
 allsplitdat = split(alldat, alldat$sampleName)
 
-calculateRPIM("RRBS_cpgMethylation_EWS_L10", allsplitdat)
-
-x = sapply(names(allsplitdat), calculateRPIM, allsplitdat)
-diag(x) = NA
-colMeans(x, na.rm = T)
+getRPIM(allsplitdat)
 
 # Rivanna demo:
 # install.packages("~/code/RPIM", repos=NULL)
@@ -36,6 +32,3 @@ colMeans(x, na.rm = T)
 # imres <- calculatePIM(dat)
 # imres
 # sum(imres$IM == TRUE) / nrow(imres)
-
-
-
