@@ -32,7 +32,7 @@ calculateRPIM = function(sampleName, BSDTsplit) {
 #' splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
 getRPIM = function(BSDTsplit) {
 
-  x = sapply(names(BSDTsplit, calculateRPIM, BSDTsplit)
+  x = sapply(names(BSDTsplit), calculateRPIM, BSDTsplit)
 
   diag(x) = NA
 
