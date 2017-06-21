@@ -16,7 +16,7 @@ calculateRPIM = function(sampleName, BSDTsplit, cache = TRUE, cacheDir = getOpti
 
   for (y in names(BSDTsplit)) {
 
-    sampleRelative = prepIM(BSDTsplit[[y]], cache = cache)
+    sampleRelative = prepIM(BSDTsplit[[y]], cache = cache, cacheDir = cacheDir)
     result[y] = merge(sampleBaseline, sampleRelative)[,log(sum(IM.x/.N)/sum(IM.y/.N))]
 
   }
