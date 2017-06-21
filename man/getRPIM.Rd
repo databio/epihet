@@ -9,11 +9,13 @@ and then a huge table with this data for lots of samples, this will calculate
 the relative proportion of CGs that are flagged, for pairwise comparisons
 between all samples, subsetted to the CGs present in both samples.}
 \usage{
-getRPIM(BSDTsplit)
+getRPIM(BSDTsplit, cache = TRUE)
 }
 \arguments{
 \item{BSDTsplit}{A BSDT (bisulfite data.table) that has been split with
 splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.}
+
+\item{cache}{Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE}
 }
 \description{
 Get the relative proportion of flagged sites. This is a general version

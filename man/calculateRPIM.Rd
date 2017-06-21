@@ -4,7 +4,7 @@
 \alias{calculateRPIM}
 \title{Helper function to get the relative proportion of flagged sites for a single sample versus all other samples in a list of bisulfite data tables.}
 \usage{
-calculateRPIM(sampleName, BSDTsplit)
+calculateRPIM(sampleName, BSDTsplit, cache = TRUE)
 }
 \arguments{
 \item{sampleName}{The sample (which should specify a name in BSDTlist) to return
@@ -12,6 +12,8 @@ the proportion of sites for.}
 
 \item{BSDTsplit}{A BSDT (bisulfite data.table) that has been split with
 splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.}
+
+\item{cache}{Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE}
 }
 \description{
 Helper function to get the relative proportion of flagged sites for a single sample versus all other samples in a list of bisulfite data tables.

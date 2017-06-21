@@ -4,7 +4,8 @@
 #' the proportion of sites for.
 #' @param BSDTsplit A BSDT (bisulfite data.table) that has been split with
 #' splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
-calculateRPIM = function(sampleName, BSDTsplit) {
+#' @param cache Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE
+calculateRPIM = function(sampleName, BSDTsplit, cache = TRUE) {
 
   message(sampleName)
 
@@ -30,7 +31,8 @@ calculateRPIM = function(sampleName, BSDTsplit) {
 #' @export
 #' @param BSDTsplit A BSDT (bisulfite data.table) that has been split with
 #' splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
-getRPIM = function(BSDTsplit) {
+#' @param cache Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE
+getRPIM = function(BSDTsplit, cache = TRUE) {
 
   x = sapply(names(BSDTsplit), calculateRPIM, BSDTsplit)
 
