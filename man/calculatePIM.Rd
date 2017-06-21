@@ -5,7 +5,10 @@
 \title{Given a Bisulfite data.table (BSDT), calculates the proportion
 of intermediate methylation sites.}
 \usage{
-calculatePIM(BSDT)
+calculatePIM(BSDT, cache = TRUE)
+}
+\arguments{
+\item{cache}{Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE}
 }
 \description{
 TODO: Make the alpha level a parameter, both for confidence intervals,

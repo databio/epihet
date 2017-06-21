@@ -11,11 +11,11 @@ calculateRPIM = function(sampleName, BSDTsplit, cache = TRUE) {
 
   result = vector()
 
-  sampleBaseline = prepIM(BSDTsplit[[sampleName]])
+  sampleBaseline = prepIM(BSDTsplit[[sampleName]], cache = cache)
 
   for (y in names(BSDTsplit)) {
 
-    sampleRelative = prepIM(BSDTsplit[[y]])
+    sampleRelative = prepIM(BSDTsplit[[y]], cache = cache)
     result[y] = merge(sampleBaseline, sampleRelative)[,log(sum(IM.x/.N)/sum(IM.y/.N))]
 
   }
@@ -34,7 +34,7 @@ calculateRPIM = function(sampleName, BSDTsplit, cache = TRUE) {
 #' @param cache Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE
 getRPIM = function(BSDTsplit, cache = TRUE) {
 
-  x = sapply(names(BSDTsplit), calculateRPIM, BSDTsplit)
+  x = sapply(names(BSDTsplit), calculateRPIM, BSDTsplit, cache)
 
   diag(x) = NA
 
