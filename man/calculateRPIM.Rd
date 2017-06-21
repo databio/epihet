@@ -2,12 +2,7 @@
 % Please edit documentation in R/calculateRPIM.R
 \name{calculateRPIM}
 \alias{calculateRPIM}
-\title{Get the relative proportion of flagged sites. This is a general version
-of a method to get the RPIM (Relative Proportion of Intermediate Methylation)
-Given a DT with bisulfite reads, and a flag column,
-and then a huge table with this data for lots of samples, this will calculate
-the relative proportion of CGs that are flagged, for pairwise comparisons
-between all samples, subsetted to the CGs present in both samples.}
+\title{Helper function to get the relative proportion of flagged sites for a single sample versus all other samples in a list of bisulfite data tables.}
 \usage{
 calculateRPIM(sampleName, BSDTsplit)
 }
@@ -19,10 +14,5 @@ the proportion of sites for.}
 splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.}
 }
 \description{
-Get the relative proportion of flagged sites. This is a general version
-of a method to get the RPIM (Relative Proportion of Intermediate Methylation)
-Given a DT with bisulfite reads, and a flag column,
-and then a huge table with this data for lots of samples, this will calculate
-the relative proportion of CGs that are flagged, for pairwise comparisons
-between all samples, subsetted to the CGs present in both samples.
+Helper function to get the relative proportion of flagged sites for a single sample versus all other samples in a list of bisulfite data tables.
 }
