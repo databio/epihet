@@ -5,13 +5,14 @@
 #' @param BSDTsplit A BSDT (bisulfite data.table) that has been split with
 #' splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
 #' @param cache Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE
-calculateRPIM = function(sampleName, BSDTsplit, cache = TRUE) {
+#' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
+calculateRPIM = function(sampleName, BSDTsplit, cache = TRUE, cacheDir = getOption("RESOURCES.RCACHE")) {
 
   message(sampleName)
 
   result = vector()
 
-  sampleBaseline = prepIM(BSDTsplit[[sampleName]], cache = cache)
+  sampleBaseline = prepIM(BSDTsplit[[sampleName]], cache = cache, cacheDir = cacheDir)
 
   for (y in names(BSDTsplit)) {
 
@@ -32,9 +33,10 @@ calculateRPIM = function(sampleName, BSDTsplit, cache = TRUE) {
 #' @param BSDTsplit A BSDT (bisulfite data.table) that has been split with
 #' splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
 #' @param cache Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE
-getRPIM = function(BSDTsplit, cache = TRUE) {
+#' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
+getRPIM = function(BSDTsplit, cache = TRUE, cacheDir = getOption("RESOURCES.RCACHE")) {
 
-  x = sapply(names(BSDTsplit), calculateRPIM, BSDTsplit, cache)
+  x = sapply(names(BSDTsplit), calculateRPIM, BSDTsplit, cache, cacheDir)
 
   diag(x) = NA
 
