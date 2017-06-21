@@ -4,7 +4,10 @@
 \alias{prepIM}
 \title{Given a Bisulfite data.table (BSDT), prepares the intermediate methylation (IM) table}
 \usage{
-prepIM(BSDT)
+prepIM(BSDT, cache = TRUE)
+}
+\arguments{
+\item{cache}{Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE}
 }
 \description{
 Given a Bisulfite data.table (BSDT), prepares the intermediate methylation (IM) table

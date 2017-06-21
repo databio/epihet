@@ -1,24 +1,32 @@
 #' Given a Bisulfite data.table (BSDT), prepares the intermediate methylation (IM) table
+#' @param cache Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE
 #' @export
-prepIM = function(BSDT) {
+prepIM = function(BSDT, cache = TRUE) {
 
-  # Grab (or create) the binomial confidence intervals
-  simpleCache::simpleCache("cachedBinomialIntervals95", {
-    cachedBinomialIntervals95 = cacheBinomConfIntervals(2000, 2000, .95)
-  }, cacheDir = getOption("RESOURCES.RCACHE"))
-  cachedBinomialIntervals = cachedBinomialIntervals95
+  if(cache) {
+    # Grab (or create) the binomial confidence intervals
+    simpleCache::simpleCache("cachedBinomialIntervals95", {
+      cachedBinomialIntervals95 = cacheBinomConfIntervals(2000, 2000, .95)
+    }, cacheDir = getOption("RESOURCES.RCACHE"))
+    cachedBinomialIntervals = cachedBinomialIntervals95
 
-  # Make the memory use smaller by eliminating unnecessary columns
-  # BSDT[,sampleName:=NULL]
-  cachedBinomialIntervals[, method:=NULL]
-  cachedBinomialIntervals[, mean:=NULL]
-  cachedBinomialIntervals[, shape1:=NULL]
-  cachedBinomialIntervals[, shape2:=NULL]
-  cachedBinomialIntervals[, sig:=NULL]
-  cachedBinomialIntervals
+    # Make the memory use smaller by eliminating unnecessary columns
+    # BSDT[,sampleName:=NULL]
+    cachedBinomialIntervals[, method:=NULL]
+    cachedBinomialIntervals[, mean:=NULL]
+    cachedBinomialIntervals[, shape1:=NULL]
+    cachedBinomialIntervals[, shape2:=NULL]
+    cachedBinomialIntervals[, sig:=NULL]
+    cachedBinomialIntervals
 
-  # Calculate the credibility interval
-  CI = BScredIntervalCache(BSDT, cachedBinomialIntervals)
+    # Calculate the credibility interval
+    CI = BScredIntervalCache(BSDT, cachedBinomialIntervals)
+
+  } else {
+
+    CI = BScredInterval(BSDT)
+
+  }
 
   setkey(CI, "chr", "start")
 
