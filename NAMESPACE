@@ -3,3 +3,4 @@
 export(calculatePIM)
 export(getRPIM)
 export(prepIM)
+importFrom(data.table,":=")

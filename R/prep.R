@@ -23,7 +23,7 @@ prepIM = function(BSDT, cache = TRUE, cacheDir = getOption("RESOURCES.RCACHE")) 
 
   }
 
-  setkey(CI, "chr", "start")
+  data.table::setkey(CI, "chr", "start")
 
   # Prep matrix for relative PIM calculation
   # We define a site as IM (Intermediate Methylation) if its credibility
