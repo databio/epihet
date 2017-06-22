@@ -23,6 +23,19 @@ allsplitdat = split(alldat, alldat$sampleName)
 
 getRPIM(allsplitdat)
 
+# try this with bsseq object
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("bsseqData")
+
+library(bsseqData)
+data(BS.cancer.ex)
+
+bsseqdat = MIRA::bsseqToDataTable(BS.cancer.ex)
+
+getRPIM(bsseqdat, cache = TRUE, cacheDir = "baz")
+
+getRPIM(bsseqdat, cache = FALSE)
+
 # Rivanna demo:
 # install.packages("~/code/RPIM", repos=NULL)
 # library(RPIM)
