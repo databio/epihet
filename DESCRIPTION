@@ -14,4 +14,10 @@ Imports:
   binom, 
   simpleCache,
   data.table
+Suggests:
+    knitr,
+    testthat,
+    BiocStyle,
+    rmarkdown
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr
