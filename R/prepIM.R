@@ -12,13 +12,7 @@ prepIM = function(BSDT, cache = TRUE, cacheDir = getOption("RESOURCES.RCACHE")) 
     cachedBinomialIntervals = cachedBinomialIntervals95
 
     # Make the memory use smaller by eliminating unnecessary columns
-    # BSDT[,sampleName:=NULL]
-    cachedBinomialIntervals[, method:=NULL]
-    cachedBinomialIntervals[, mean:=NULL]
-    cachedBinomialIntervals[, shape1:=NULL]
-    cachedBinomialIntervals[, shape2:=NULL]
-    cachedBinomialIntervals[, sig:=NULL]
-    cachedBinomialIntervals
+    cachedBinomialIntervals[, c("method","mean","shape1","shape2","sig"):=NULL]
 
     # Calculate the credibility interval
     CI = BScredIntervalCache(BSDT, cachedBinomialIntervals)
