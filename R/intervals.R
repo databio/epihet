@@ -1,3 +1,4 @@
+#'@export
 BScredInterval = function(BSDT, hitCol="methylCount", readCol="coverage", confLevel=.95) {
 
   conf = binom::binom.bayes(BSDT[,get(hitCol)], BSDT[,get(readCol)], conf.level = confLevel, tol=.005, type="central")
@@ -10,6 +11,7 @@ BScredInterval = function(BSDT, hitCol="methylCount", readCol="coverage", confLe
 
 }
 
+#'@export
 BScredIntervalCache = function(BSDT, cachedBinomialIntervals, hitCol="methylCount", readCol="coverage", confLevel=.95){
   storeKey = data.table::key(BSDT)
 
@@ -43,6 +45,7 @@ BScredIntervalCache = function(BSDT, cachedBinomialIntervals, hitCol="methylCoun
   BSDT
 }
 
+#'@export
 cacheBinomConfIntervals = function(maxHits, maxTotal, confLevel) {
 
   allCombinations = cbind(hits=rep(0:maxHits, each=maxTotal), total=rep(1:maxTotal))
