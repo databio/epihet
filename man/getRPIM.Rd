@@ -2,26 +2,15 @@
 % Please edit documentation in R/calculate.R
 \name{getRPIM}
 \alias{getRPIM}
-\title{Get the relative proportion of flagged sites. This is a general version
-of a method to get the RPIM (Relative Proportion of Intermediate Methylation).
-Given a DT with bisulfite reads, and a flag column,
-and then a huge table with this data for lots of samples, this will calculate
-the relative proportion of CGs that are flagged, for pairwise comparisons
-between all samples, subsetted to the CGs present in both samples.}
+\title{Get the relative proportion of flagged sites.}
 \usage{
-getRPIM(BSDTsplit, cacheDir = getOption("RESOURCES.RCACHE"))
+getRPIM(bsData, cacheDir = getOption("RESOURCES.RCACHE"))
 }
 \arguments{
-\item{BSDTsplit}{A BSDT (bisulfite data.table) that has been split with
-splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.}
+\item{bsData}{Bisulfite sequencing data for multiple samples; a BSDT (bisulfite data.table) that has been split with splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.}
 
 \item{cacheDir}{If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one}
 }
 \description{
-Get the relative proportion of flagged sites. This is a general version
-of a method to get the RPIM (Relative Proportion of Intermediate Methylation).
-Given a DT with bisulfite reads, and a flag column,
-and then a huge table with this data for lots of samples, this will calculate
-the relative proportion of CGs that are flagged, for pairwise comparisons
-between all samples, subsetted to the CGs present in both samples.
+Get the relative proportion of flagged sites.
 }

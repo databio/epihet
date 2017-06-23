@@ -1,8 +1,8 @@
-#' Given a Bisulfite data.table (BSDT), prepares the intermediate methylation (IM) table
-#' @param BSDT Bisulfite sequencing data in a data.table format
+#' Given bisulfite sequencing data, prepares the intermediate methylation (IM) table
+#' @param bsData Bisulfite sequencing data
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 #' @export
-prepIM = function(BSDT, cacheDir = getOption("RESOURCES.RCACHE")) {
+prepIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
 
   if (requireNamespace("simpleCache", quietly=TRUE)) {
 
@@ -15,11 +15,11 @@ prepIM = function(BSDT, cacheDir = getOption("RESOURCES.RCACHE")) {
     cachedBinomialIntervals[, c("method","mean","shape1","shape2","sig"):=NULL]
 
     # Calculate the credibility interval
-    CI = BScredIntervalCache(BSDT, cachedBinomialIntervals)
+    CI = BScredIntervalCache(bsData, cachedBinomialIntervals)
 
   } else {
     message("install simplecache to speed up...")
-    CI = BScredInterval(BSDT)
+    CI = BScredInterval(bsData)
   }
 
   data.table::setkey(CI, "chr", "start")
@@ -36,4 +36,5 @@ prepIM = function(BSDT, cacheDir = getOption("RESOURCES.RCACHE")) {
   IM = CI[, ..keepCols]
 
   IM
+
 }

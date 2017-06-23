@@ -4,14 +4,13 @@
 \alias{calculateRPIM}
 \title{Helper function to get the relative proportion of flagged sites for a single sample versus all other samples in a list of bisulfite data tables.}
 \usage{
-calculateRPIM(sampleName, BSDTsplit, cacheDir = getOption("RESOURCES.RCACHE"))
+calculateRPIM(sampleName, bsData, cacheDir = getOption("RESOURCES.RCACHE"))
 }
 \arguments{
 \item{sampleName}{The sample (which should specify a name in BSDTlist) to return
 the proportion of sites for.}
 
-\item{BSDTsplit}{A BSDT (bisulfite data.table) that has been split with
-splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.}
+\item{bsData}{Bisulfite sequencing data for multiple samples; a BSDT (bisulfite data.table) that has been split with splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.}
 
 \item{cacheDir}{If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one}
 }

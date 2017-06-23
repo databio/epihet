@@ -2,17 +2,17 @@
 % Please edit documentation in R/calculate.R
 \name{calculatePIM}
 \alias{calculatePIM}
-\title{Given a Bisulfite data.table (BSDT), calculates the proportion
+\title{Given bisulfite sequencing data, calculates the proportion
 of intermediate methylation sites.}
 \usage{
-calculatePIM(BSDT, cacheDir = getOption("RESOURCES.RCACHE"))
+calculatePIM(bsData, cacheDir = getOption("RESOURCES.RCACHE"))
 }
 \arguments{
-\item{BSDT}{Bisulfite sequencing data in a data.table format}
+\item{bsData}{Bisulfite sequencing data;}
 
 \item{cacheDir}{If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one}
 }
 \description{
-Given a Bisulfite data.table (BSDT), calculates the proportion
+Given bisulfite sequencing data, calculates the proportion
 of intermediate methylation sites.
 }
