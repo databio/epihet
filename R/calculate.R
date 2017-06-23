@@ -5,7 +5,7 @@
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 #' @export
 
-calculatePIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
+PIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
 
   imtab = prepIM(bsData, cacheDir = cacheDir)
 
@@ -40,7 +40,7 @@ calculateRPIM = function(sampleName, bsData, cacheDir = getOption("RESOURCES.RCA
 #' @export
 #' @param bsData Bisulfite sequencing data for multiple samples; a BSDT (bisulfite data.table) that has been split with splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
-getRPIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
+RPIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
 
   x = sapply(names(bsData), calculateRPIM, bsData, cacheDir)
 

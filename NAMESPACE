@@ -2,7 +2,7 @@
 
 export(BScredInterval)
 export(BScredIntervalCache)
-export(calculatePIM)
-export(getRPIM)
+export(PIM)
+export(RPIM)
 export(prepIM)
 importFrom(data.table,":=")

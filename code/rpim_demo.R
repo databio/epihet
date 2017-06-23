@@ -8,7 +8,7 @@ dat <- MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_L10.bed")
 # have to setSharedCacheDir()
 simpleCache::setSharedCacheDir("cache")
 
-imres <- calculatePIM(dat)
+imres <- PIM(dat)
 
 ###############################
 
@@ -21,7 +21,7 @@ dat4 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T120.bed")
 alldat = rbind(dat,dat2, dat3, dat4)
 allsplitdat = split(alldat, alldat$sampleName)
 
-getRPIM(allsplitdat)
+RPIM(allsplitdat)
 
 # try this with bsseq object
 # source("https://bioconductor.org/biocLite.R")
@@ -32,9 +32,9 @@ data(BS.cancer.ex)
 
 bsseqdat = MIRA::bsseqToDataTable(BS.cancer.ex)
 
-getRPIM(bsseqdat, cache = TRUE, cacheDir = "baz")
+RPIM(bsseqdat, cache = TRUE, cacheDir = "baz")
 
-getRPIM(bsseqdat, cache = FALSE)
+RPIM(bsseqdat, cache = FALSE)
 
 # Rivanna demo:
 # install.packages("~/code/RPIM", repos=NULL)
