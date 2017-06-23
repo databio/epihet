@@ -16,9 +16,11 @@ knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
 
 ## Overview
 
-RPIM is a score that measures the epigenetic heterogeneity in a bisulfite sequencing sample. Under the assumption that a homogeneous sample will have mostly CpGs with either 100 it follows that the proportion of sites that differ from these two extremes can be used as a measure of sample heterogeneity.
+RPIM is a score that measures the epigenetic heterogeneity in a bisulfite sequencing sample. Under the assumption that a homogeneous sample will have mostly CpGs with either 0 or 100 percent DNA methylation, it follows that the proportion of sites that differ from these two extremes can be used as a measure of sample heterogeneity.
 
 ## Intermediate Methylation
+
+We define a site as IM (Intermediate Methylation) if its credibility interval is not completely below .25, or above .75. Other sites are more likely to be either 0 or 1 (or very close).
 
 - histogram of methylation to demonstrate IM?
 - scientific application / interpretation of IM?
@@ -68,7 +70,7 @@ dat4 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T120.bed")
 alldat = rbind(dat,dat2, dat3, dat4)
 allsplitdat = split(alldat, alldat$sampleName)
 
-getRPIM(allsplitdat)
+RPIM(allsplitdat)
 
 # try this with bsseq object
 # source("https://bioconductor.org/biocLite.R")
@@ -79,7 +81,6 @@ data(BS.cancer.ex)
 
 bsseqdat = MIRA::bsseqToDataTable(BS.cancer.ex)
 
-getRPIM(bsseqdat, cache = TRUE, cacheDir = "foo")
+RPIM(bsseqdat, cacheDir = "foo")
 
-getRPIM(bsseqdat, cache = FALSE)
 ```
