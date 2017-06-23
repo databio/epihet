@@ -1,12 +1,11 @@
 #' Given a Bisulfite data.table (BSDT), prepares the intermediate methylation (IM) table
 #' @param BSDT Bisulfite sequencing data in a data.table format
-#' @param cache Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 #' @export
-prepIM = function(BSDT, cache = TRUE, cacheDir = getOption("RESOURCES.RCACHE")) {
+prepIM = function(BSDT, cacheDir = getOption("RESOURCES.RCACHE")) {
 
-  if(cache) {
-    # Grab (or create) the binomial confidence intervals
+  if (requireNamespace("simpleCache", quietly=TRUE)) {
+
     simpleCache::simpleCache("cachedBinomialIntervals95", {
       cachedBinomialIntervals95 = cacheBinomConfIntervals(2000, 2000, .95)
     }, cacheDir = cacheDir)
@@ -19,9 +18,8 @@ prepIM = function(BSDT, cache = TRUE, cacheDir = getOption("RESOURCES.RCACHE")) 
     CI = BScredIntervalCache(BSDT, cachedBinomialIntervals)
 
   } else {
-
+    message("install simplecache to speed up...")
     CI = BScredInterval(BSDT)
-
   }
 
   data.table::setkey(CI, "chr", "start")

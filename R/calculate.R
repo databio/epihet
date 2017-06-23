@@ -2,13 +2,12 @@
 #' of intermediate methylation sites.
 #'
 #' @param BSDT Bisulfite sequencing data in a data.table format
-#' @param cache Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 #' @export
 
-calculatePIM = function(BSDT, cache = TRUE, cacheDir = getOption("RESOURCES.RCACHE")) {
+calculatePIM = function(BSDT, cacheDir = getOption("RESOURCES.RCACHE")) {
 
-  imtab = prepIM(BSDT, cache = cache, cacheDir = cacheDir)
+  imtab = prepIM(BSDT, cacheDir = cacheDir)
 
   sum(imtab$IM == TRUE) / nrow(imtab)
 
@@ -20,19 +19,18 @@ calculatePIM = function(BSDT, cache = TRUE, cacheDir = getOption("RESOURCES.RCAC
 #' the proportion of sites for.
 #' @param BSDTsplit A BSDT (bisulfite data.table) that has been split with
 #' splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
-#' @param cache Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
-calculateRPIM = function(sampleName, BSDTsplit, cache = TRUE, cacheDir = getOption("RESOURCES.RCACHE")) {
+calculateRPIM = function(sampleName, BSDTsplit, cacheDir = getOption("RESOURCES.RCACHE")) {
 
   message(sampleName)
 
   result = vector()
 
-  sampleBaseline = prepIM(BSDTsplit[[sampleName]], cache = cache, cacheDir = cacheDir)
+  sampleBaseline = prepIM(BSDTsplit[[sampleName]], cacheDir = cacheDir)
 
   for (y in names(BSDTsplit)) {
 
-    sampleRelative = prepIM(BSDTsplit[[y]], cache = cache, cacheDir = cacheDir)
+    sampleRelative = prepIM(BSDTsplit[[y]], cacheDir = cacheDir)
     result[y] = merge(sampleBaseline, sampleRelative)[,log(sum(IM.x/.N)/sum(IM.y/.N))]
 
   }
@@ -48,11 +46,10 @@ calculateRPIM = function(sampleName, BSDTsplit, cache = TRUE, cacheDir = getOpti
 #' @export
 #' @param BSDTsplit A BSDT (bisulfite data.table) that has been split with
 #' splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
-#' @param cache Logical indicating whether or not to use caching via \code{\link{simpleCache}}; default is TRUE
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
-getRPIM = function(BSDTsplit, cache = TRUE, cacheDir = getOption("RESOURCES.RCACHE")) {
+getRPIM = function(BSDTsplit, cacheDir = getOption("RESOURCES.RCACHE")) {
 
-  x = sapply(names(BSDTsplit), calculateRPIM, BSDTsplit, cache, cacheDir)
+  x = sapply(names(BSDTsplit), calculateRPIM, BSDTsplit, cacheDir)
 
   diag(x) = NA
 

@@ -12,12 +12,13 @@ Encoding: UTF-8
 LazyData: true
 Imports:
   binom, 
-  simpleCache,
   data.table
 Suggests:
-    knitr,
-    testthat,
-    BiocStyle,
-    rmarkdown
+  knitr,
+  testthat,
+  BiocStyle,
+  rmarkdown
+Enhances:
+  simpleCache
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
