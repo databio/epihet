@@ -22,3 +22,4 @@ Enhances:
   simpleCache
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
+biocViews: DNAMethylation, MethylSeq, Epigenetics, Coverage, Sequencing
