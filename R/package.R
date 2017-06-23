@@ -22,6 +22,11 @@ NULL
 # I have to register stuff used in data.table as non-standard evaluation,
 # in order to pass some R CMD check NOTES.
 if (getRversion() >= "2.15.1") {
-  utils::globalVariables(c(
-    ".", "upper", "lower", "..keepCols", ".N", "IM.x", "IM.y"))
+    utils::globalVariables(c(".",
+                             "upper",
+                             "lower",
+                             "..keepCols",
+                             ".N",
+                             "IM.x",
+                             "IM.y"))
 }

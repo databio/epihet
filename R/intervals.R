@@ -7,13 +7,17 @@
 #' @export
 BScredInterval = function(BSDT, methylCol="methylCount", coverageCol="coverage", confLevel=.95) {
 
-  conf = binom::binom.bayes(BSDT[,get(methylCol)], BSDT[,get(coverageCol)], conf.level = confLevel, tol=.005, type="central")
+    conf = binom::binom.bayes(BSDT[,get(methylCol)],
+                              BSDT[,get(coverageCol)],
+                              conf.level = confLevel,
+                              tol=.005,
+                              type="central")
 
-  conf = data.table::data.table(conf)
+    conf = data.table::data.table(conf)
 
-  BSDT = cbind(conf, BSDT)
+    BSDT = cbind(conf, BSDT)
 
-  BSDT
+    BSDT
 
 }
 
@@ -28,33 +32,33 @@ BScredInterval = function(BSDT, methylCol="methylCount", coverageCol="coverage",
 BScredIntervalCache = function(BSDT, cachedBinomialIntervals, methylCol="methylCount", coverageCol="coverage", confLevel=.95){
   storeKey = data.table::key(BSDT)
 
-  if(length(storeKey) != 2) {
+    if(length(storeKey) != 2) {
 
-    message("Key temporarily set to ", methylCol, " and ", coverageCol)
+        message("Key temporarily set to ", methylCol, " and ", coverageCol)
 
-    data.table::setkeyv(BSDT, c(methylCol, coverageCol))
+        data.table::setkeyv(BSDT, c(methylCol, coverageCol))
 
-  }
+    }
 
-  keepCols = colnames(BSDT)
+    keepCols = colnames(BSDT)
 
-  # Use cache where you can
+    # Use cache where you can
 
-  BSDT = cachedBinomialIntervals[BSDT,]
+    BSDT = cachedBinomialIntervals[BSDT,]
 
-  data.table::setnames(BSDT,c("x", "n"), c(methylCol, coverageCol))
+    data.table::setnames(BSDT,c("x", "n"), c(methylCol, coverageCol))
 
-  #And otherwise, count directly.
+    #And otherwise, count directly.
 
-  if(nrow(BSDT[is.na(upper),]) > 0) {
+    if(nrow(BSDT[is.na(upper),]) > 0) {
 
-    a = BScredInterval(BSDT[is.na(upper),keepCols, with=FALSE])
+          a = BScredInterval(BSDT[is.na(upper),keepCols, with=FALSE])
 
-    BSDT[is.na(upper),] = a[,colnames(BSDT), with=FALSE]
+          BSDT[is.na(upper),] = a[,colnames(BSDT), with=FALSE]
 
-  }
+    }
 
-  BSDT
+    BSDT
 
 }
 
@@ -65,16 +69,21 @@ BScredIntervalCache = function(BSDT, cachedBinomialIntervals, methylCol="methylC
 #' @param confLevel The level of confidence to be used in the confidence interval; default is 0.95
 cacheBinomConfIntervals = function(maxHits, maxTotal, confLevel) {
 
-  allCombinations = cbind(hits=rep(0:maxHits, each=maxTotal), total=rep(1:maxTotal))
+    allCombinations = cbind(hits=rep(0:maxHits, each=maxTotal),
+                            total=rep(1:maxTotal))
 
-  allPossibleCombinations = allCombinations[allCombinations[,"hits"] <= allCombinations[,"total"],]
+    allPossibleCombinations = allCombinations[allCombinations[,"hits"] <= allCombinations[,"total"],]
 
-  conf = binom::binom.bayes(allPossibleCombinations[,"hits"], allPossibleCombinations[,"total"], conf.level = confLevel, tol=.005, type="central")
+    conf = binom::binom.bayes(allPossibleCombinations[,"hits"],
+                              allPossibleCombinations[,"total"],
+                              conf.level = confLevel,
+                              tol=.005,
+                              type="central")
 
-  confdt = data.table::data.table(conf)
+    confdt = data.table::data.table(conf)
 
-  data.table::setkey(confdt, "x", "n")
+    data.table::setkey(confdt, "x", "n")
 
-  confdt
+    confdt
 
 }

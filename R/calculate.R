@@ -7,9 +7,9 @@
 
 PIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
 
-  imtab = prepIM(bsData, cacheDir = cacheDir)
+    imtab = prepIM(bsData, cacheDir = cacheDir)
 
-  sum(imtab$IM == TRUE) / nrow(imtab)
+    sum(imtab$IM == TRUE) / nrow(imtab)
 
 }
 
@@ -21,19 +21,19 @@ PIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 calculateRPIM = function(sampleName, bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
 
-  message(sampleName)
+    message(sampleName)
 
-  result = vector()
+    result = vector()
 
-  sampleBaseline = prepIM(bsData[[sampleName]], cacheDir = cacheDir)
+    sampleBaseline = prepIM(bsData[[sampleName]], cacheDir = cacheDir)
 
-  for (y in names(bsData)) {
+    for (y in names(bsData)) {
 
-    sampleRelative = prepIM(bsData[[y]], cacheDir = cacheDir)
-    result[y] = merge(sampleBaseline, sampleRelative)[,log(sum(IM.x/.N)/sum(IM.y/.N))]
+        sampleRelative = prepIM(bsData[[y]], cacheDir = cacheDir)
+        result[y] = merge(sampleBaseline, sampleRelative)[,log(sum(IM.x/.N)/sum(IM.y/.N))]
 
-  }
-  return(result)
+    }
+    return(result)
 }
 
 #' Get the relative proportion of flagged sites.
@@ -42,10 +42,10 @@ calculateRPIM = function(sampleName, bsData, cacheDir = getOption("RESOURCES.RCA
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 RPIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
 
-  x = sapply(names(bsData), calculateRPIM, bsData, cacheDir)
+    x = sapply(names(bsData), calculateRPIM, bsData, cacheDir)
 
-  diag(x) = NA
+    diag(x) = NA
 
-  colMeans(x, na.rm = T)
+    colMeans(x, na.rm = TRUE)
 
 }
