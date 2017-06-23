@@ -4,15 +4,15 @@
 \alias{BScredInterval}
 \title{Calculate credibility interval based on binomial bayes distribution}
 \usage{
-BScredInterval(BSDT, hitCol = "methylCount", readCol = "coverage",
+BScredInterval(BSDT, methylCol = "methylCount", coverageCol = "coverage",
   confLevel = 0.95)
 }
 \arguments{
 \item{BSDT}{Bisulfite sequencing data in a data.table format}
 
-\item{hitCol}{Name of column containing methylation count; defaults to "methylCount"}
+\item{methylCol}{Name of column containing methylation count; defaults to "methylCount"}
 
-\item{readCol}{Name of column containing coverage; defaults to "coverage"}
+\item{coverageCol}{Name of column containing coverage (i.e. number of reads); defaults to "coverage"}
 
 \item{confLevel}{The level of confidence to be used in the confidence interval; default is 0.95}
 }

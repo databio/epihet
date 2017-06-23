@@ -4,17 +4,17 @@
 \alias{BScredIntervalCache}
 \title{Calculate credibility interval based on binomial bayes distribution with caching}
 \usage{
-BScredIntervalCache(BSDT, cachedBinomialIntervals, hitCol = "methylCount",
-  readCol = "coverage", confLevel = 0.95)
+BScredIntervalCache(BSDT, cachedBinomialIntervals, methylCol = "methylCount",
+  coverageCol = "coverage", confLevel = 0.95)
 }
 \arguments{
 \item{BSDT}{Bisulfite sequencing data in a data.table format}
 
 \item{cachedBinomialIntervals}{cachedBinomialIntervals}
 
-\item{hitCol}{Name of column containing methylation count; defaults to "methylCount"}
+\item{methylCol}{Name of column containing methylation count; defaults to "methylCount"}
 
-\item{readCol}{Name of column containing coverage; defaults to "coverage"}
+\item{coverageCol}{Name of column containing coverage (i.e. number of reads); defaults to "coverage"}
 
 \item{confLevel}{The level of confidence to be used in the confidence interval; default is 0.95}
 }
