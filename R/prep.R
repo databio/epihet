@@ -20,19 +20,17 @@ prepIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = .2
         CI = BScredIntervalCache(bsData, cachedBinomialIntervals)
 
     } else {
-      message("install simplecache to speed up...")
-      CI = BScredInterval(bsData)
+
+        message("install simplecache to speed up...")
+
+        CI = BScredInterval(bsData)
     }
 
     data.table::setkey(CI, "chr", "start")
 
-    # Prep matrix for relative PIM calculation
-    # We define a site as IM (Intermediate Methylation) if its credibility
-    # interval is not completely below .25, or above .75. Other sites are
-    # more likely to be either 0 or 1 (or very close).
-
     # only keep columns if they exist in input data
     IM = CI[, IM := !(upper < imLower | lower > imUpper) ]
+
     keepCols = intersect(colnames(CI), c("chr", "start", "id", "IM"))
 
     IM = CI[, ..keepCols]
