@@ -3,11 +3,16 @@
 #'
 #' @param bsData Bisulfite sequencing data;
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
+#' @param imLower The lower boundary for intermediate methylation (IM); if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .25
+#' @param imUpper The upper boundary for intermediate methylation (IM); if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .75
 #' @export
 
-PIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
+PIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = 0.25, imUpper = 0.75) {
 
-    imtab = prepIM(bsData, cacheDir = cacheDir)
+    imtab = prepIM(bsData,
+                   cacheDir = cacheDir,
+                   imLower = imLower,
+                   imUpper = imUpper)
 
     sum(imtab$IM == TRUE) / nrow(imtab)
 
@@ -19,17 +24,26 @@ PIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
 #' the proportion of sites for.
 #' @param bsData Bisulfite sequencing data for multiple samples; a BSDT (bisulfite data.table) that has been split with splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
-calculateRPIM = function(sampleName, bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
+#' @param imLower The lower boundary for intermediate methylation (IM); if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .25
+#' @param imUpper The upper boundary for intermediate methylation (IM); if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .75
+calculateRPIM = function(sampleName, bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = .25, imUpper = .75) {
 
     message(sampleName)
 
     result = vector()
 
-    sampleBaseline = prepIM(bsData[[sampleName]], cacheDir = cacheDir)
+    sampleBaseline = prepIM(bsData[[sampleName]],
+                            cacheDir = cacheDir,
+                            imLower = imLower,
+                            imUpper = imUpper)
 
     for (y in names(bsData)) {
 
-        sampleRelative = prepIM(bsData[[y]], cacheDir = cacheDir)
+        sampleRelative = prepIM(bsData[[y]],
+                                cacheDir = cacheDir,
+                                imLower = imLower,
+                                imUpper = imUpper)
+
         result[y] = merge(sampleBaseline, sampleRelative)[,log(sum(IM.x/.N)/sum(IM.y/.N))]
 
     }
@@ -40,9 +54,16 @@ calculateRPIM = function(sampleName, bsData, cacheDir = getOption("RESOURCES.RCA
 #' @export
 #' @param bsData Bisulfite sequencing data for multiple samples; a BSDT (bisulfite data.table) that has been split with splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
-RPIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE")) {
+#' @param imLower The lower boundary for intermediate methylation (IM); if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .25
+#' @param imUpper The upper boundary for intermediate methylation (IM); if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .75
+RPIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = .25, imUpper = .75) {
 
-    x = sapply(names(bsData), calculateRPIM, bsData, cacheDir)
+    x = sapply(names(bsData),
+               calculateRPIM,
+               bsData,
+               cacheDir,
+               imLower,
+               imUpper)
 
     diag(x) = NA
 
