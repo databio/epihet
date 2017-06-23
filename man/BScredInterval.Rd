@@ -4,11 +4,11 @@
 \alias{BScredInterval}
 \title{Calculate credibility interval based on binomial bayes distribution}
 \usage{
-BScredInterval(BSDT, methylCol = "methylCount", coverageCol = "coverage",
+BScredInterval(bsData, methylCol = "methylCount", coverageCol = "coverage",
   confLevel = 0.95)
 }
 \arguments{
-\item{BSDT}{Bisulfite sequencing data in a data.table format}
+\item{bsData}{Bisulfite sequencing data}
 
 \item{methylCol}{Name of column containing methylation count; defaults to "methylCount"}
 

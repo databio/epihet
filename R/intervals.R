@@ -1,64 +1,65 @@
 #' Calculate credibility interval based on binomial bayes distribution
 #'
-#' @param BSDT Bisulfite sequencing data in a data.table format
+#' @param bsData Bisulfite sequencing data
 #' @param methylCol Name of column containing methylation count; defaults to "methylCount"
 #' @param coverageCol Name of column containing coverage (i.e. number of reads); defaults to "coverage"
 #' @param confLevel The level of confidence to be used in the confidence interval; default is 0.95
 #' @export
-BScredInterval = function(BSDT, methylCol="methylCount", coverageCol="coverage", confLevel=.95) {
+BScredInterval = function(bsData, methylCol="methylCount", coverageCol="coverage", confLevel=.95) {
 
-    conf = binom::binom.bayes(BSDT[,get(methylCol)],
-                              BSDT[,get(coverageCol)],
+    conf = binom::binom.bayes(bsData[,get(methylCol)],
+                              bsData[,get(coverageCol)],
                               conf.level = confLevel,
                               tol=.005,
                               type="central")
 
     conf = data.table::data.table(conf)
 
-    BSDT = cbind(conf, BSDT)
+    bsData = cbind(conf, bsData)
 
-    BSDT
+    bsData
 
 }
 
 #' Calculate credibility interval based on binomial bayes distribution with caching
 #'
-#' @param BSDT Bisulfite sequencing data in a data.table format
+#' @param bsData Bisulfite sequencing data
 #' @param methylCol Name of column containing methylation count; defaults to "methylCount"
 #' @param coverageCol Name of column containing coverage (i.e. number of reads); defaults to "coverage"
 #' @param cachedBinomialIntervals cachedBinomialIntervals
 #' @param confLevel The level of confidence to be used in the confidence interval; default is 0.95
 #' @export
-BScredIntervalCache = function(BSDT, cachedBinomialIntervals, methylCol="methylCount", coverageCol="coverage", confLevel=.95){
-  storeKey = data.table::key(BSDT)
+BScredIntervalCache = function(bsData, cachedBinomialIntervals, methylCol="methylCount", coverageCol="coverage", confLevel=.95){
+
+    storeKey = data.table::key(bsData)
 
     if(length(storeKey) != 2) {
 
         message("Key temporarily set to ", methylCol, " and ", coverageCol)
 
-        data.table::setkeyv(BSDT, c(methylCol, coverageCol))
+        data.table::setkeyv(bsData, c(methylCol, coverageCol))
 
     }
 
-    keepCols = colnames(BSDT)
+    keepCols = colnames(bsData)
 
     # Use cache where you can
 
-    BSDT = cachedBinomialIntervals[BSDT,]
+    bsData = cachedBinomialIntervals[bsData,]
 
-    data.table::setnames(BSDT,c("x", "n"), c(methylCol, coverageCol))
+    data.table::setnames(bsData,c("x", "n"), c(methylCol, coverageCol))
 
     #And otherwise, count directly.
 
-    if(nrow(BSDT[is.na(upper),]) > 0) {
+    if(nrow(bsData[is.na(upper),]) > 0) {
 
-          a = BScredInterval(BSDT[is.na(upper),keepCols, with=FALSE])
+          a = BScredInterval(bsData[is.na(upper),keepCols, with=FALSE])
 
-          BSDT[is.na(upper),] = a[,colnames(BSDT), with=FALSE]
+          bsData[is.na(upper),] = a[,colnames(bsData), with=FALSE]
 
     }
 
-    BSDT
+    bsData
 
 }
 
