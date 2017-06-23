@@ -2,7 +2,6 @@
 
 export(BScredInterval)
 export(BScredIntervalCache)
-export(cacheBinomConfIntervals)
 export(calculatePIM)
 export(getRPIM)
 export(prepIM)
