@@ -5,13 +5,16 @@
 #' @param coverageCol Name of column containing coverage (i.e. number of reads); defaults to "coverage"
 #' @param confLevel The level of confidence to be used in the confidence interval; default is 0.95
 #' @export
-BScredInterval = function(bsData, methylCol="methylCount", coverageCol="coverage", confLevel=.95) {
+BScredInterval = function(bsData,
+                            methylCol="methylCount",
+                            coverageCol="coverage",
+                            confLevel=.95) {
 
     conf = binom::binom.bayes(bsData[,get(methylCol)],
-                              bsData[,get(coverageCol)],
-                              conf.level = confLevel,
-                              tol=.005,
-                              type="central")
+                                bsData[,get(coverageCol)],
+                                conf.level = confLevel,
+                                tol=.005,
+                                type="central")
 
     conf = data.table::data.table(conf)
 

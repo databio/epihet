@@ -26,7 +26,9 @@ PIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = 0.25,
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 #' @param imLower The lower boundary for intermediate methylation (IM); if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .25
 #' @param imUpper The upper boundary for intermediate methylation (IM); if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .75
-calculateRPIM = function(sampleName, bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = .25, imUpper = .75) {
+calculateRPIM = function(sampleName, bsData,
+                            cacheDir = getOption("RESOURCES.RCACHE"),
+                            imLower = .25, imUpper = .75) {
 
     message(sampleName)
 
@@ -47,7 +49,9 @@ calculateRPIM = function(sampleName, bsData, cacheDir = getOption("RESOURCES.RCA
         result[y] = merge(sampleBaseline, sampleRelative)[,log(sum(IM.x/.N)/sum(IM.y/.N))]
 
     }
+
     return(result)
+
 }
 
 #' Get the relative proportion of flagged sites.
@@ -56,14 +60,15 @@ calculateRPIM = function(sampleName, bsData, cacheDir = getOption("RESOURCES.RCA
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 #' @param imLower The lower boundary for intermediate methylation (IM); if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .25
 #' @param imUpper The upper boundary for intermediate methylation (IM); if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .75
-RPIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = .25, imUpper = .75) {
+RPIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE"),
+                imLower = .25, imUpper = .75) {
 
     x = sapply(names(bsData),
-               calculateRPIM,
-               bsData,
-               cacheDir,
-               imLower,
-               imUpper)
+                calculateRPIM,
+                bsData,
+                cacheDir,
+                imLower,
+                imUpper)
 
     diag(x) = NA
 
