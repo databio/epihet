@@ -32,7 +32,7 @@ prepIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = .2
     # more likely to be either 0 or 1 (or very close).
 
     # only keep columns if they exist in input data
-    IM = CI[, IM := !(upper < imUpper | lower > imLower) ]
+    IM = CI[, IM := !(upper < imLower | lower > imUpper) ]
     keepCols = intersect(colnames(CI), c("chr", "start", "id", "IM"))
 
     IM = CI[, ..keepCols]
