@@ -7,12 +7,15 @@
 #' @param imUpper The upper boundary for intermediate methylation (IM); if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .75
 #' @export
 
-PIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = 0.25, imUpper = 0.75) {
+PIM = function(bsData,
+                cacheDir = getOption("RESOURCES.RCACHE"),
+                imLower = 0.25,
+                imUpper = 0.75) {
 
     imtab = prepIM(bsData,
-                   cacheDir = cacheDir,
-                   imLower = imLower,
-                   imUpper = imUpper)
+                    cacheDir = cacheDir,
+                    imLower = imLower,
+                    imUpper = imUpper)
 
     sum(imtab$IM == TRUE) / nrow(imtab)
 
@@ -26,9 +29,11 @@ PIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = 0.25,
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 #' @param imLower The lower boundary for intermediate methylation (IM); if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .25
 #' @param imUpper The upper boundary for intermediate methylation (IM); if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .75
-calculateRPIM = function(sampleName, bsData,
+calculateRPIM = function(sampleName,
+                            bsData,
                             cacheDir = getOption("RESOURCES.RCACHE"),
-                            imLower = .25, imUpper = .75) {
+                            imLower = .25,
+                            imUpper = .75) {
 
     message(sampleName)
 
@@ -60,8 +65,10 @@ calculateRPIM = function(sampleName, bsData,
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 #' @param imLower The lower boundary for intermediate methylation (IM); if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .25
 #' @param imUpper The upper boundary for intermediate methylation (IM); if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .75
-RPIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE"),
-                imLower = .25, imUpper = .75) {
+RPIM = function(bsData,
+                cacheDir = getOption("RESOURCES.RCACHE"),
+                imLower = .25,
+                imUpper = .75) {
 
     x = sapply(names(bsData),
                 calculateRPIM,

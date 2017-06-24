@@ -1,15 +1,19 @@
 #' Given bisulfite sequencing data, prepares the intermediate methylation (IM) table
 #' @param bsData Bisulfite sequencing data
-#' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
+#' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE},
+#' if no such option has been specified you must provide one
 #' @param imLower The lower boundary for intermediate methylation (IM); if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .25
 #' @param imUpper The upper boundary for intermediate methylation (IM); if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .75
 #' @export
-prepIM = function(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = .25, imUpper = .75) {
+prepIM = function(bsData,
+                    cacheDir = getOption("RESOURCES.RCACHE"),
+                    imLower = .25,
+                    imUpper = .75) {
 
     if (requireNamespace("simpleCache", quietly=TRUE)) {
         simpleCache::simpleCache("cachedBinomialIntervals95", {
         cachedBinomialIntervals95 = cacheBinomConfIntervals(2000, 2000, .95)
-      }, cacheDir = cacheDir)
+    }, cacheDir = cacheDir)
 
         cachedBinomialIntervals = cachedBinomialIntervals95
 

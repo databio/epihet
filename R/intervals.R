@@ -32,7 +32,11 @@ BScredInterval = function(bsData,
 #' @param cachedBinomialIntervals cachedBinomialIntervals
 #' @param confLevel The level of confidence to be used in the confidence interval; default is 0.95
 #' @export
-BScredIntervalCache = function(bsData, cachedBinomialIntervals, methylCol="methylCount", coverageCol="coverage", confLevel=.95){
+BScredIntervalCache = function(bsData,
+                                cachedBinomialIntervals,
+                                methylCol="methylCount",
+                                coverageCol="coverage",
+                                confLevel=.95){
 
     storeKey = data.table::key(bsData)
 
@@ -56,9 +60,9 @@ BScredIntervalCache = function(bsData, cachedBinomialIntervals, methylCol="methy
 
     if(nrow(bsData[is.na(upper),]) > 0) {
 
-          a = BScredInterval(bsData[is.na(upper),keepCols, with=FALSE])
+        a = BScredInterval(bsData[is.na(upper),keepCols, with=FALSE])
 
-          bsData[is.na(upper),] = a[,colnames(bsData), with=FALSE]
+        bsData[is.na(upper),] = a[,colnames(bsData), with=FALSE]
 
     }
 
@@ -73,16 +77,16 @@ BScredIntervalCache = function(bsData, cachedBinomialIntervals, methylCol="methy
 #' @param confLevel The level of confidence to be used in the confidence interval; default is 0.95
 cacheBinomConfIntervals = function(maxHits, maxTotal, confLevel) {
 
-    allCombinations = cbind(hits=rep(0:maxHits, each=maxTotal),
+    allComb = cbind(hits=rep(0:maxHits, each=maxTotal),
                             total=rep(1:maxTotal))
 
-    allPossibleCombinations = allCombinations[allCombinations[,"hits"] <= allCombinations[,"total"],]
+    allPossibleComb = allComb[allComb[,"hits"] <= allComb[,"total"],]
 
-    conf = binom::binom.bayes(allPossibleCombinations[,"hits"],
-                              allPossibleCombinations[,"total"],
-                              conf.level = confLevel,
-                              tol=.005,
-                              type="central")
+    conf = binom::binom.bayes(allPossibleComb[,"hits"],
+                                allPossibleComb[,"total"],
+                                conf.level = confLevel,
+                                tol=.005,
+                                type="central")
 
     confdt = data.table::data.table(conf)
 
