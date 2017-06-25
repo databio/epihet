@@ -75,6 +75,7 @@ BScredIntervalCache = function(bsData,
 #' @param maxHits maxHits
 #' @param maxTotal maxTotal
 #' @param confLevel The level of confidence to be used in the confidence interval; default is 0.95
+#' @export
 cacheBinomConfIntervals = function(maxHits, maxTotal, confLevel) {
 
     allComb = cbind(hits=rep(0:maxHits, each=maxTotal),
