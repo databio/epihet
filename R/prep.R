@@ -10,6 +10,23 @@ prepIM = function(bsData,
                     imLower = .25,
                     imUpper = .75) {
 
+    # allowed = c("data.table", "list", "BSseq")
+    #
+    # if(!inherits(bsData, allowed))
+    #     stop(c("the following are allowed:\n",
+    #             paste0(allowed, collapse = "\n")))
+
+    # stopifnot(inherits(bsData, allowed))
+
+    # if(inherits(bsData, "BSseq"))
+    #     bsData = MIRA::bsseqToDataTable(bsData)
+
+    # if(inherits(bsData, "BSseq")) {
+    #     bsData = MIRA::bsseqToDataTable(bsData)
+    # } else {
+    #     bsData
+    # }
+
     if (requireNamespace("simpleCache", quietly=TRUE)) {
         simpleCache::simpleCache("cachedBinomialIntervals95", {
         cachedBinomialIntervals95 = cacheBinomConfIntervals(2000, 2000, .95)
@@ -42,3 +59,21 @@ prepIM = function(bsData,
     IM
 
 }
+
+#' Helper function to check input Bisulfite sequencing data and convert as necessary
+#' @param bsData Bisulfite sequencing data
+# bsDataCheck() = function(bsData) {
+#
+#     allowed = c("data.table", "list", "BSseq")
+#
+#     if(!inherits(bsData, allowed))
+#         stop(c("the following are allowed:\n",
+#                paste0(allowed, collapse = "\n")))
+#
+#     if(inherits(bsData, "BSseq")) {
+#         bsData = MIRA::bsseqToDataTable(bsData)
+#     } else {
+#         bsData
+#     }
+#
+# }

@@ -12,6 +12,17 @@ PIM = function(bsData,
                 imLower = 0.25,
                 imUpper = 0.75) {
 
+    # bsDataCheck(bsData)
+
+    allowed = c("data.table", "list", "BSseq")
+
+    if(!inherits(bsData, allowed))
+        stop(c("the following are allowed:\n",
+               paste0(allowed, collapse = "\n")))
+
+    if(inherits(bsData, "BSseq"))
+        bsData = MIRA::bsseqToDataTable(bsData)
+
     imtab = prepIM(bsData,
                     cacheDir = cacheDir,
                     imLower = imLower,
@@ -37,12 +48,12 @@ calculateRPIM = function(sampleName,
 
     message(sampleName)
 
-    result = vector()
-
     sampleBaseline = prepIM(bsData[[sampleName]],
                             cacheDir = cacheDir,
                             imLower = imLower,
                             imUpper = imUpper)
+
+    result = vector()
 
     for (y in names(bsData)) {
 
@@ -69,6 +80,17 @@ RPIM = function(bsData,
                 cacheDir = getOption("RESOURCES.RCACHE"),
                 imLower = .25,
                 imUpper = .75) {
+
+    # bsDataCheck(bsData)
+
+    allowed = c("data.table", "list", "BSseq")
+
+    if(!inherits(bsData, allowed))
+        stop(c("the following are allowed:\n",
+               paste0(allowed, collapse = "\n")))
+
+    if(inherits(bsData, "BSseq"))
+        bsData = MIRA::bsseqToDataTable(bsData)
 
     x = sapply(names(bsData),
                 calculateRPIM,
