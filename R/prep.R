@@ -62,18 +62,16 @@ prepIM = function(bsData,
 
 #' Helper function to check input Bisulfite sequencing data and convert as necessary
 #' @param bsData Bisulfite sequencing data
-# bsDataCheck() = function(bsData) {
-#
-#     allowed = c("data.table", "list", "BSseq")
-#
-#     if(!inherits(bsData, allowed))
-#         stop(c("the following are allowed:\n",
-#                paste0(allowed, collapse = "\n")))
-#
-#     if(inherits(bsData, "BSseq")) {
-#         bsData = MIRA::bsseqToDataTable(bsData)
-#     } else {
-#         bsData
-#     }
-#
-# }
+bsDataCheck = function(bsData) {
+
+    allowed = c("data.table", "list", "BSseq")
+
+    if(!inherits(bsData, allowed))
+        stop(c("the following are allowed:\n",
+               paste0(allowed, collapse = "\n")))
+
+    if(inherits(bsData, "BSseq"))
+        bsData = MIRA::bsseqToDataTable(bsData)
+
+    bsData
+}
