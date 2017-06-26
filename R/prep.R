@@ -10,23 +10,6 @@ prepIM = function(bsData,
                     imLower = .25,
                     imUpper = .75) {
 
-    # allowed = c("data.table", "list", "BSseq")
-    #
-    # if(!inherits(bsData, allowed))
-    #     stop(c("the following are allowed:\n",
-    #             paste0(allowed, collapse = "\n")))
-
-    # stopifnot(inherits(bsData, allowed))
-
-    # if(inherits(bsData, "BSseq"))
-    #     bsData = MIRA::bsseqToDataTable(bsData)
-
-    # if(inherits(bsData, "BSseq")) {
-    #     bsData = MIRA::bsseqToDataTable(bsData)
-    # } else {
-    #     bsData
-    # }
-
     if (requireNamespace("simpleCache", quietly=TRUE)) {
         simpleCache::simpleCache("cachedBinomialIntervals95", {
         cachedBinomialIntervals95 = cacheBinomConfIntervals(2000, 2000, .95)
@@ -74,4 +57,5 @@ bsDataCheck = function(bsData) {
         bsData = MIRA::bsseqToDataTable(bsData)
 
     bsData
+
 }
