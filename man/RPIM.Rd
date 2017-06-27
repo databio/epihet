@@ -8,16 +8,25 @@
 \title{Get the relative proportion of flagged sites.}
 \usage{
 RPIM(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = 0.25,
-  imUpper = 0.75)
+  imUpper = 0.75, confLevel = 0.95)
 }
 \arguments{
 \item{bsData}{Bisulfite sequencing data for multiple samples; a BSDT (bisulfite data.table) that has been split with splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.}
 
-\item{cacheDir}{If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one}
+\item{cacheDir}{If using caching, this argument specifies the directory to use for storing the cache;
+defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one}
 
-\item{imLower}{The lower boundary for intermediate methylation (IM); if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .25}
+\item{imLower}{The lower boundary for intermediate methylation (IM);
+if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM;
+defaults to .25}
 
-\item{imUpper}{The upper boundary for intermediate methylation (IM); if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM; defaults to .75}
+\item{imUpper}{The upper boundary for intermediate methylation (IM);
+if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM;
+defaults to .75}
+
+\item{confLevel}{A decimal indicating the level of confidence
+to be used while creating cached the binomial bayes credibility interval;
+default is .95 for 95 percent confidence}
 }
 \description{
 Get the relative proportion of flagged sites.

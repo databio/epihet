@@ -11,7 +11,9 @@ cacheBinomConfIntervals(maxHits, maxTotal, confLevel)
 
 \item{maxTotal}{maxTotal}
 
-\item{confLevel}{The level of confidence to be used in the confidence interval; default is 0.95}
+\item{confLevel}{A decimal indicating the level of confidence
+to be used while creating cached the binomial bayes credibility interval;
+default is .95 for 95 percent confidence}
 }
 \description{
 Cache binomial confidence intervals

@@ -16,7 +16,9 @@ BScredIntervalCache(bsData, cachedBinomialIntervals,
 
 \item{coverageCol}{Name of column containing coverage (i.e. number of reads); defaults to "coverage"}
 
-\item{confLevel}{The level of confidence to be used in the confidence interval; default is 0.95}
+\item{confLevel}{A decimal indicating the level of confidence
+to be used while creating cached the binomial bayes credibility interval;
+default is .95 for 95 percent confidence}
 }
 \description{
 Calculate credibility interval based on binomial bayes distribution with caching

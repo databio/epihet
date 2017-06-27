@@ -1,9 +1,13 @@
 #' Calculate credibility interval based on binomial bayes distribution
 #'
 #' @param bsData Bisulfite sequencing data
-#' @param methylCol Name of column containing methylation count; defaults to "methylCount"
-#' @param coverageCol Name of column containing coverage (i.e. number of reads); defaults to "coverage"
-#' @param confLevel The level of confidence to be used in the confidence interval; default is 0.95
+#' @param methylCol Name of column containing methylation count;
+#' defaults to "methylCount"
+#' @param coverageCol Name of column containing coverage (i.e. number of reads);
+#' defaults to "coverage"
+#' @param confLevel A decimal indicating the level of confidence
+#' to be used while creating cached the binomial bayes credibility interval;
+#' default is .95 for 95 percent confidence
 #' @export
 BScredInterval = function(bsData,
                             methylCol="methylCount",
@@ -30,7 +34,9 @@ BScredInterval = function(bsData,
 #' @param methylCol Name of column containing methylation count; defaults to "methylCount"
 #' @param coverageCol Name of column containing coverage (i.e. number of reads); defaults to "coverage"
 #' @param cachedBinomialIntervals cachedBinomialIntervals
-#' @param confLevel The level of confidence to be used in the confidence interval; default is 0.95
+#' @param confLevel A decimal indicating the level of confidence
+#' to be used while creating cached the binomial bayes credibility interval;
+#' default is .95 for 95 percent confidence
 #' @export
 BScredIntervalCache = function(bsData,
                                 cachedBinomialIntervals,
@@ -60,7 +66,7 @@ BScredIntervalCache = function(bsData,
 
     if(nrow(bsData[is.na(upper),]) > 0) {
 
-        a = BScredInterval(bsData[is.na(upper),keepCols, with=FALSE])
+        a = BScredInterval(bsData[is.na(upper),keepCols, with=FALSE], confLevel = confLevel)
 
         bsData[is.na(upper),] = a[,colnames(bsData), with=FALSE]
 
@@ -74,7 +80,9 @@ BScredIntervalCache = function(bsData,
 #'
 #' @param maxHits maxHits
 #' @param maxTotal maxTotal
-#' @param confLevel The level of confidence to be used in the confidence interval; default is 0.95
+#' @param confLevel A decimal indicating the level of confidence
+#' to be used while creating cached the binomial bayes credibility interval;
+#' default is .95 for 95 percent confidence
 #' @export
 cacheBinomConfIntervals = function(maxHits, maxTotal, confLevel) {
 
