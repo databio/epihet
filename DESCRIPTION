@@ -12,7 +12,8 @@ Encoding: UTF-8
 LazyData: true
 Imports:
   binom, 
-  data.table
+  data.table,
+  MIRA
 Suggests:
   knitr,
   testthat,
