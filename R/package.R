@@ -17,10 +17,9 @@
 
 NULL
 
-# Because of some issues with CRAN submission,
-# (see here: http://stackoverflow.com/questions/9439256/)
-# I have to register stuff used in data.table as non-standard evaluation,
-# in order to pass some R CMD check NOTES.
+
+# register stuff used in data.table as non-standard evaluation
+# reference: http://stackoverflow.com/questions/9439256/
 
 if (getRversion() >= "2.15.1") {
 

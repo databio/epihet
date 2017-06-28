@@ -8,6 +8,11 @@
 #' @param confLevel A decimal indicating the level of confidence
 #' to be used while creating cached the binomial bayes credibility interval;
 #' default is .95 for 95 percent confidence
+#'
+#' @return Bisulfite sequencing data as a \code{data.table} object with columns
+#' indicating upper and lower limits of Bayesian binomial confidence interval
+#' for methylation
+#'
 #' @export
 BScredInterval = function(bsData,
                             methylCol="methylCount",
@@ -37,6 +42,11 @@ BScredInterval = function(bsData,
 #' @param confLevel A decimal indicating the level of confidence
 #' to be used while creating cached the binomial bayes credibility interval;
 #' default is .95 for 95 percent confidence
+#'
+#' @return Bisulfite sequencing data as a \code{data.table} object with columns
+#' indicating upper and lower limits of Bayesian binomial confidence interval
+#' for methylation
+#'
 #' @export
 BScredIntervalCache = function(bsData,
                                 cachedBinomialIntervals,
@@ -78,11 +88,17 @@ BScredIntervalCache = function(bsData,
 
 #' Cache binomial confidence intervals
 #'
-#' @param maxHits maxHits
-#' @param maxTotal maxTotal
+#' @param maxHits Maximum methylation count
+#' @param maxTotal Maximum coverage
 #' @param confLevel A decimal indicating the level of confidence
 #' to be used while creating cached the binomial bayes credibility interval;
 #' default is .95 for 95 percent confidence
+#'
+#' @return A \code{data.table} object containing columns for upper and lower limits
+#' of a Bayesian binomial confidence interval for maximum methylation count and
+#' coverage; this serves as a cache that can replace the need to perform the
+#' comptutionally expensive probability estimation
+#'
 #' @export
 cacheBinomConfIntervals = function(maxHits, maxTotal, confLevel) {
 

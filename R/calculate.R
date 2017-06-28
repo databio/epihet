@@ -2,13 +2,18 @@
 #' of intermediate methylation sites.
 #'
 #' @param bsData Bisulfite sequencing data;
-#' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache;
-#' defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
+#' @param cacheDir If using caching, this argument specifies the directory
+#' to use for storing the cache;
+#' defaults to global option for \code{RESOURCES.RACHE};
+#' if no such option has been specified you must provide one
 #' @param imLower The lower boundary for intermediate methylation (IM);
-#' if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM;
+#' if a site is entirely below this threshold
+#' (or if any part of a its binomial credibilty interval overlaps this boundary)
+#' it is not considered IM;
 #' defaults to .25
 #' @param imUpper The upper boundary for intermediate methylation (IM);
-#' if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM;
+#' if a site is entirely above this threshold
+#' (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM;
 #' defaults to .75
 #' @param confLevel A decimal indicating the level of confidence
 #' to be used while creating cached the binomial bayes credibility interval;
@@ -37,13 +42,19 @@ PIM = function(bsData,
 #'
 #' @param sampleName The sample (which should specify a name in BSDTlist) to return
 #' the proportion of sites for.
-#' @param bsData Bisulfite sequencing data for multiple samples; a BSDT (bisulfite data.table) that has been split with splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
+#' @param bsData Bisulfite sequencing data for multiple samples; a BSDT
+#' (bisulfite data.table) that has been split with splitDataTable
+#' (so, a list of BSDTs); one corresponds to each sample to test.
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 #' @param imLower The lower boundary for intermediate methylation (IM);
-#' if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM;
+#' if a site is entirely below this threshold
+#' (or if any part of a its binomial credibilty interval overlaps this boundary)
+#' it is not considered IM;
 #' defaults to .25
 #' @param imUpper The upper boundary for intermediate methylation (IM);
-#' if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM;
+#' if a site is entirely above this threshold
+#' (or if any part of a its binomial credibilty interval overlaps this boundary)
+#' it is not considered IM;
 #' defaults to .75
 #' @param confLevel A decimal indicating the level of confidence
 #' to be used while creating cached the binomial bayes credibility interval;
@@ -82,11 +93,16 @@ calculateRPIM = function(sampleName,
 }
 
 #' Get the relative proportion of flagged sites.
-#' @param bsData Bisulfite sequencing data for multiple samples; a BSDT (bisulfite data.table) that has been split with splitDataTable (so, a list of BSDTs); one corresponds to each sample to test.
-#' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache;
-#' defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
+#' @param bsData Bisulfite sequencing data for multiple samples; a BSDT
+#' (bisulfite data.table) that has been split with splitDataTable
+#' (so, a list of BSDTs); one corresponds to each sample to test.
+#' @param cacheDir If using caching, this argument specifies the directory to use
+#' for storing the cache; defaults to global option for \code{RESOURCES.RACHE};
+#' if no such option has been specified you must provide one
 #' @param imLower The lower boundary for intermediate methylation (IM);
-#' if a site is entirely below this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM;
+#' if a site is entirely below this threshold
+#' (or if any part of a its binomial credibilty interval overlaps this boundary)
+#' it is not considered IM;
 #' defaults to .25
 #' @param imUpper The upper boundary for intermediate methylation (IM);
 #' if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM;

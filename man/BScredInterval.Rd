@@ -20,6 +20,11 @@ defaults to "coverage"}
 to be used while creating cached the binomial bayes credibility interval;
 default is .95 for 95 percent confidence}
 }
+\value{
+Bisulfite sequencing data as a \code{data.table} object with columns
+indicating upper and lower limits of Bayesian binomial confidence interval
+for methylation
+}
 \description{
 Calculate credibility interval based on binomial bayes distribution
 }
