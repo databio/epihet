@@ -8,16 +8,21 @@
 #' if no such option has been specified you must provide one
 #' @param imLower The lower boundary for intermediate methylation (IM);
 #' if a site is entirely below this threshold
-#' (or if any part of a its binomial credibilty interval overlaps this boundary)
+#' (or if any part of a its binomial credibility interval overlaps this boundary)
 #' it is not considered IM;
 #' defaults to .25
 #' @param imUpper The upper boundary for intermediate methylation (IM);
 #' if a site is entirely above this threshold
-#' (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM;
+#' (or if any part of a its binomial credibility interval overlaps this boundary)
+#' it is not considered IM;
 #' defaults to .75
 #' @param confLevel A decimal indicating the level of confidence
 #' to be used while creating cached the binomial bayes credibility interval;
 #' default is .95 for 95 percent confidence
+#'
+#' @return A single value (numeric vector of length 1) indicating the
+#' proportion of intermediate methylation (PIM) of an individual sample
+#'
 #' @export
 
 PIM = function(bsData,
@@ -38,7 +43,8 @@ PIM = function(bsData,
 
 }
 
-#' Helper function to get the relative proportion of flagged sites for a single sample versus all other samples in a list of bisulfite data tables.
+#' Helper function to get the relative proportion of flagged sites for a single
+#' sample versus all other samples in a list of bisulfite data tables.
 #'
 #' @param sampleName The sample (which should specify a name in BSDTlist) to return
 #' the proportion of sites for.
@@ -48,12 +54,12 @@ PIM = function(bsData,
 #' @param cacheDir If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one
 #' @param imLower The lower boundary for intermediate methylation (IM);
 #' if a site is entirely below this threshold
-#' (or if any part of a its binomial credibilty interval overlaps this boundary)
+#' (or if any part of a its binomial credibility interval overlaps this boundary)
 #' it is not considered IM;
 #' defaults to .25
 #' @param imUpper The upper boundary for intermediate methylation (IM);
 #' if a site is entirely above this threshold
-#' (or if any part of a its binomial credibilty interval overlaps this boundary)
+#' (or if any part of a its binomial credibility interval overlaps this boundary)
 #' it is not considered IM;
 #' defaults to .75
 #' @param confLevel A decimal indicating the level of confidence
@@ -101,11 +107,13 @@ calculateRPIM = function(sampleName,
 #' if no such option has been specified you must provide one
 #' @param imLower The lower boundary for intermediate methylation (IM);
 #' if a site is entirely below this threshold
-#' (or if any part of a its binomial credibilty interval overlaps this boundary)
+#' (or if any part of a its binomial credibility interval overlaps this boundary)
 #' it is not considered IM;
 #' defaults to .25
 #' @param imUpper The upper boundary for intermediate methylation (IM);
-#' if a site is entirely above this threshold (or if any part of a its binomial credibilty interval overlaps this boundary) it is not considered IM;
+#' if a site is entirely above this threshold
+#' (or if any part of a its binomial credibility interval overlaps this boundary)
+#' it is not considered IM;
 #' defaults to .75
 #' @param confLevel A decimal indicating the level of confidence
 #' to be used while creating cached the binomial bayes credibility interval;

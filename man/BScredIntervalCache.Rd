@@ -12,7 +12,8 @@ BScredIntervalCache(bsData, cachedBinomialIntervals,
 
 \item{cachedBinomialIntervals}{cachedBinomialIntervals}
 
-\item{methylCol}{Name of column containing methylation count; defaults to "methylCount"}
+\item{methylCol}{Name of column containing methylation count;
+defaults to "methylCount"}
 
 \item{coverageCol}{Name of column containing coverage (i.e. number of reads); defaults to "coverage"}
 

@@ -36,7 +36,8 @@ BScredInterval = function(bsData,
 #' Calculate credibility interval based on binomial bayes distribution with caching
 #'
 #' @param bsData Bisulfite sequencing data
-#' @param methylCol Name of column containing methylation count; defaults to "methylCount"
+#' @param methylCol Name of column containing methylation count;
+#' defaults to "methylCount"
 #' @param coverageCol Name of column containing coverage (i.e. number of reads); defaults to "coverage"
 #' @param cachedBinomialIntervals cachedBinomialIntervals
 #' @param confLevel A decimal indicating the level of confidence
@@ -97,7 +98,7 @@ BScredIntervalCache = function(bsData,
 #' @return A \code{data.table} object containing columns for upper and lower limits
 #' of a Bayesian binomial confidence interval for maximum methylation count and
 #' coverage; this serves as a cache that can replace the need to perform the
-#' comptutionally expensive probability estimation
+#' computationally expensive probability estimation
 #'
 #' @export
 cacheBinomConfIntervals = function(maxHits, maxTotal, confLevel) {

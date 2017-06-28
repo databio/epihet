@@ -19,7 +19,7 @@ default is .95 for 95 percent confidence}
 A \code{data.table} object containing columns for upper and lower limits
 of a Bayesian binomial confidence interval for maximum methylation count and
 coverage; this serves as a cache that can replace the need to perform the
-comptutionally expensive probability estimation
+computationally expensive probability estimation
 }
 \description{
 Cache binomial confidence intervals
