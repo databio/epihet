@@ -30,6 +30,14 @@ default is .75}
 to be used while creating cached the binomial bayes credibility interval; default
 is .95 for 95 percent confidence}
 }
+\value{
+A \code{data.table} object with the following columns:
+\itemize{
+ \item{chr} {chromosome of methylation read}
+ \item{start} {starting position for methylation read}
+ \item{IM} {boolean indicator of itermediate methylation status}
+ }
+}
 \description{
 Given bisulfite sequencing data, prepares the intermediate methylation (IM) table
 }

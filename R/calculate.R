@@ -46,7 +46,8 @@ PIM = function(bsData,
 #' Helper function to get the relative proportion of flagged sites for a single
 #' sample versus all other samples in a list of bisulfite data tables.
 #'
-#' @param sampleName The sample (which should specify a name in BSDTlist) to return
+#' @param sampleName The sample (which should specify a name in the
+#' bisulfite sequencing data) to use as the baseline
 #' the proportion of sites for.
 #' @param bsData Bisulfite sequencing data for multiple samples; a BSDT
 #' (bisulfite data.table) that has been split with splitDataTable
@@ -65,6 +66,10 @@ PIM = function(bsData,
 #' @param confLevel A decimal indicating the level of confidence
 #' to be used while creating cached the binomial bayes credibility interval;
 #' default is .95 for 95 percent confidence
+#'
+#'@return A vector of the same length as the number of samples being
+#' analyzed; each element in the vector represents the the proportion of
+#' intermediate methylation relative to the other samples for a single sample
 calculateRPIM = function(sampleName,
                             bsData,
                             cacheDir = getOption("RESOURCES.RCACHE"),
@@ -99,6 +104,7 @@ calculateRPIM = function(sampleName,
 }
 
 #' Get the relative proportion of flagged sites.
+#'
 #' @param bsData Bisulfite sequencing data for multiple samples; a BSDT
 #' (bisulfite data.table) that has been split with splitDataTable
 #' (so, a list of BSDTs); one corresponds to each sample to test.
@@ -118,6 +124,12 @@ calculateRPIM = function(sampleName,
 #' @param confLevel A decimal indicating the level of confidence
 #' to be used while creating cached the binomial bayes credibility interval;
 #' default is .95 for 95 percent confidence
+#'
+#' @return A named vector of the same length as the number of samples being
+#' analyzed; each element in the vector represents the the average proportion of
+#' intermediate methylation relative to the other samples;
+#' all samples are represented and elements named accordingly
+
 #' @export
 RPIM = function(bsData,
                 cacheDir = getOption("RESOURCES.RCACHE"),

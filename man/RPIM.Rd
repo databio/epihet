@@ -35,6 +35,12 @@ defaults to .75}
 to be used while creating cached the binomial bayes credibility interval;
 default is .95 for 95 percent confidence}
 }
+\value{
+A named vector of the same length as the number of samples being
+analyzed; each element in the vector represents the the average proportion of
+intermediate methylation relative to the other samples;
+all samples are represented and elements named accordingly
+}
 \description{
 Get the relative proportion of flagged sites.
 

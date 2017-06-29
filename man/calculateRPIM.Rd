@@ -9,7 +9,8 @@ calculateRPIM(sampleName, bsData, cacheDir = getOption("RESOURCES.RCACHE"),
   imLower = 0.25, imUpper = 0.75, confLevel = 0.95)
 }
 \arguments{
-\item{sampleName}{The sample (which should specify a name in BSDTlist) to return
+\item{sampleName}{The sample (which should specify a name in the
+bisulfite sequencing data) to use as the baseline
 the proportion of sites for.}
 
 \item{bsData}{Bisulfite sequencing data for multiple samples; a BSDT
@@ -33,6 +34,11 @@ defaults to .75}
 \item{confLevel}{A decimal indicating the level of confidence
 to be used while creating cached the binomial bayes credibility interval;
 default is .95 for 95 percent confidence}
+}
+\value{
+A vector of the same length as the number of samples being
+analyzed; each element in the vector represents the the proportion of
+intermediate methylation relative to the other samples for a single sample
 }
 \description{
 Helper function to get the relative proportion of flagged sites for a single

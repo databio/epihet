@@ -18,6 +18,13 @@
 #' to be used while creating cached the binomial bayes credibility interval; default
 #' is .95 for 95 percent confidence
 #'
+#'@return A \code{data.table} object with the following columns:
+#'\itemize{
+#'  \item{chr} {chromosome of methylation read}
+#'  \item{start} {starting position for methylation read}
+#'  \item{IM} {boolean indicator of itermediate methylation status}
+#'  }
+#'
 #' @export
 prepIM = function(bsData,
                     cacheDir = getOption("RESOURCES.RCACHE"),
@@ -63,15 +70,19 @@ prepIM = function(bsData,
 
 }
 
-#' Helper function to check input Bisulfite sequencing data and convert as necessary
+#' Helper function to check input Bisulfite sequencing data and convert if needed
+#'
 #' @param bsData Bisulfite sequencing data
+#'
+#'@return A \code{list} of \code{data.table} objects that each contain bisulfite
+#' sequencing data
 bsDataCheck = function(bsData) {
 
     allowed = c("data.table", "list", "BSseq")
 
     if(!inherits(bsData, allowed))
         stop(c("the following are allowed:\n",
-               paste0(allowed, collapse = "\n")))
+                paste0(allowed, collapse = "\n")))
 
     if(inherits(bsData, "BSseq"))
         bsData = MIRA::bsseqToDataTable(bsData)

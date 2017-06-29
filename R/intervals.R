@@ -77,7 +77,8 @@ BScredIntervalCache = function(bsData,
 
     if(nrow(bsData[is.na(upper),]) > 0) {
 
-        a = BScredInterval(bsData[is.na(upper),keepCols, with=FALSE], confLevel = confLevel)
+        a = BScredInterval(bsData[is.na(upper),keepCols, with=FALSE],
+                            confLevel = confLevel)
 
         bsData[is.na(upper),] = a[,colnames(bsData), with=FALSE]
 

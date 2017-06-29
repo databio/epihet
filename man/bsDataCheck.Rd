@@ -2,13 +2,17 @@
 % Please edit documentation in R/prep.R
 \name{bsDataCheck}
 \alias{bsDataCheck}
-\title{Helper function to check input Bisulfite sequencing data and convert as necessary}
+\title{Helper function to check input Bisulfite sequencing data and convert if needed}
 \usage{
 bsDataCheck(bsData)
 }
 \arguments{
 \item{bsData}{Bisulfite sequencing data}
 }
+\value{
+A \code{list} of \code{data.table} objects that each contain bisulfite
+sequencing data
+}
 \description{
-Helper function to check input Bisulfite sequencing data and convert as necessary
+Helper function to check input Bisulfite sequencing data and convert if needed
 }
