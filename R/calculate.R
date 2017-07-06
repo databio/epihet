@@ -23,6 +23,17 @@
 #' @return A single value (numeric vector of length 1) indicating the
 #' proportion of intermediate methylation (PIM) of an individual sample
 #'
+#'@examples
+#'
+#'data("exampleBSDT", package = "RPIM")
+#'
+#'if (require(simpleCache)) {
+#'PIM(exampleBSDT, cacheDir = "~")
+#'
+#'simpleCache::setSharedCacheDir("cache")
+#'PIM(exampleBSDT)
+#'PIM(exampleBSDT, cacheDir = "~", imLower = .2, imUpper = .8)
+#'}
 #' @export
 
 PIM = function(bsData,

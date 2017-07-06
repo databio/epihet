@@ -40,3 +40,15 @@ proportion of intermediate methylation (PIM) of an individual sample
 Given bisulfite sequencing data, calculates the proportion
 of intermediate methylation sites.
 }
+\examples{
+
+data("exampleBSDT", package = "RPIM")
+
+if (require(simpleCache)) {
+PIM(exampleBSDT, cacheDir = "~")
+
+simpleCache::setSharedCacheDir("cache")
+PIM(exampleBSDT)
+PIM(exampleBSDT, cacheDir = "~", imLower = .2, imUpper = .8)
+}
+}
