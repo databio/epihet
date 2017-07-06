@@ -55,15 +55,7 @@ BScredIntervalCache = function(bsData,
                                 coverageCol="coverage",
                                 confLevel=.95){
 
-    storeKey = data.table::key(bsData)
-
-    if(!all(storeKey %in% c(methylCol,coverageCol))) {
-
-        message("Key temporarily set to ", methylCol, " and ", coverageCol)
-
-        data.table::setkeyv(bsData, c(methylCol, coverageCol))
-
-    }
+    data.table::setkeyv(bsData, c(methylCol, coverageCol))
 
     keepCols = colnames(bsData)
 
