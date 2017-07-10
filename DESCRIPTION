@@ -12,16 +12,16 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 2.10)
 Imports:
-  binom, 
-  data.table,
-  MIRA
+    binom, 
+    data.table,
+    MIRA
 Suggests:
-  knitr,
-  testthat,
-  BiocStyle,
-  rmarkdown
+    knitr,
+    testthat,
+    BiocStyle,
+    rmarkdown
 Enhances:
-  simpleCache
+    simpleCache
 RoxygenNote: 6.0.1.9000
 VignetteBuilder: knitr
 biocViews: DNAMethylation, MethylSeq, Epigenetics, Coverage, Sequencing, Bayesian
