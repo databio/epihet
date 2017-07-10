@@ -16,9 +16,10 @@ to be used while creating cached the binomial bayes credibility interval;
 default is .95 for 95 percent confidence}
 }
 \value{
-A \code{data.table} object containing columns for upper and lower limits
-of a Bayesian binomial confidence interval for maximum methylation count and
-coverage; this serves as a cache that can replace the need to perform the
+A \code{data.table} object containing columns for
+upper and lower limits of a Bayesian binomial
+confidence interval for maximum methylation count and coverage;
+this serves as a cache that can replace the need to perform the
 computationally expensive probability estimation
 }
 \description{

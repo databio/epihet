@@ -2,8 +2,8 @@
 % Please edit documentation in R/calculate.R
 \name{calculateRPIM}
 \alias{calculateRPIM}
-\title{Helper function to get the relative proportion of flagged sites for a single
-sample versus all other samples in a list of bisulfite data tables.}
+\title{Helper function to get the relative proportion of flagged sites for a
+single sample versus all other samples}
 \usage{
 calculateRPIM(sampleName, bsData, cacheDir = getOption("RESOURCES.RCACHE"),
   imLower = 0.25, imUpper = 0.75, confLevel = 0.95)
@@ -17,17 +17,20 @@ the proportion of sites for.}
 (bisulfite data.table) that has been split with splitDataTable
 (so, a list of BSDTs); one corresponds to each sample to test.}
 
-\item{cacheDir}{If using caching, this argument specifies the directory to use for storing the cache; defaults to global option for \code{RESOURCES.RACHE}, if no such option has been specified you must provide one}
+\item{cacheDir}{If using caching, this argument specifies the directory to
+use for storing the cache;
+defaults to global option for \code{RESOURCES.RACHE},
+if no such option has been specified you must provide one}
 
 \item{imLower}{The lower boundary for intermediate methylation (IM);
 if a site is entirely below this threshold
-(or if any part of a its binomial credibility interval overlaps this boundary)
+(or if any part of its binomial credibility interval overlaps this boundary)
 it is not considered IM;
 defaults to .25}
 
 \item{imUpper}{The upper boundary for intermediate methylation (IM);
 if a site is entirely above this threshold
-(or if any part of a its binomial credibility interval overlaps this boundary)
+(or if any part of its binomial credibility interval overlaps this boundary)
 it is not considered IM;
 defaults to .75}
 
@@ -41,6 +44,6 @@ analyzed; each element in the vector represents the the proportion of
 intermediate methylation relative to the other samples for a single sample
 }
 \description{
-Helper function to get the relative proportion of flagged sites for a single
-sample versus all other samples in a list of bisulfite data tables.
+Helper function to get the relative proportion of flagged sites for a
+single sample versus all other samples
 }

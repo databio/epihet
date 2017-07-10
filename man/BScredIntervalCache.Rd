@@ -2,7 +2,7 @@
 % Please edit documentation in R/intervals.R
 \name{BScredIntervalCache}
 \alias{BScredIntervalCache}
-\title{Calculate credibility interval based on binomial bayes distribution with caching}
+\title{Calculate credibility interval using binomial bayes distribution and caching}
 \usage{
 BScredIntervalCache(bsData, cachedBinomialIntervals,
   methylCol = "methylCount", coverageCol = "coverage", confLevel = 0.95)
@@ -15,7 +15,8 @@ BScredIntervalCache(bsData, cachedBinomialIntervals,
 \item{methylCol}{Name of column containing methylation count;
 defaults to "methylCount"}
 
-\item{coverageCol}{Name of column containing coverage (i.e. number of reads); defaults to "coverage"}
+\item{coverageCol}{Name of column containing coverage (i.e. number of reads);
+defaults to "coverage"}
 
 \item{confLevel}{A decimal indicating the level of confidence
 to be used while creating cached the binomial bayes credibility interval;
@@ -27,5 +28,5 @@ indicating upper and lower limits of Bayesian binomial confidence interval
 for methylation
 }
 \description{
-Calculate credibility interval based on binomial bayes distribution with caching
+Calculate credibility interval using binomial bayes distribution and caching
 }

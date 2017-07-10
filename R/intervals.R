@@ -1,4 +1,4 @@
-#' Calculate credibility interval based on binomial bayes distribution
+#' Calculate credibility interval using binomial bayes distribution
 #'
 #' @param bsData Bisulfite sequencing data
 #' @param methylCol Name of column containing methylation count;
@@ -32,12 +32,13 @@ BScredInterval = function(bsData,
 
 }
 
-#' Calculate credibility interval based on binomial bayes distribution with caching
+#' Calculate credibility interval using binomial bayes distribution and caching
 #'
 #' @param bsData Bisulfite sequencing data
 #' @param methylCol Name of column containing methylation count;
 #' defaults to "methylCount"
-#' @param coverageCol Name of column containing coverage (i.e. number of reads); defaults to "coverage"
+#' @param coverageCol Name of column containing coverage (i.e. number of reads);
+#' defaults to "coverage"
 #' @param cachedBinomialIntervals cachedBinomialIntervals
 #' @param confLevel A decimal indicating the level of confidence
 #' to be used while creating cached the binomial bayes credibility interval;
@@ -86,9 +87,10 @@ BScredIntervalCache = function(bsData,
 #' to be used while creating cached the binomial bayes credibility interval;
 #' default is .95 for 95 percent confidence
 #'
-#' @return A \code{data.table} object containing columns for upper and lower limits
-#' of a Bayesian binomial confidence interval for maximum methylation count and
-#' coverage; this serves as a cache that can replace the need to perform the
+#' @return A \code{data.table} object containing columns for
+#' upper and lower limits of a Bayesian binomial
+#' confidence interval for maximum methylation count and coverage;
+#' this serves as a cache that can replace the need to perform the
 #' computationally expensive probability estimation
 #'
 #'@examples

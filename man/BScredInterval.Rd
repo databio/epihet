@@ -2,7 +2,7 @@
 % Please edit documentation in R/intervals.R
 \name{BScredInterval}
 \alias{BScredInterval}
-\title{Calculate credibility interval based on binomial bayes distribution}
+\title{Calculate credibility interval using binomial bayes distribution}
 \usage{
 BScredInterval(bsData, methylCol = "methylCount", coverageCol = "coverage",
   confLevel = 0.95)
@@ -26,5 +26,5 @@ indicating upper and lower limits of Bayesian binomial confidence interval
 for methylation
 }
 \description{
-Calculate credibility interval based on binomial bayes distribution
+Calculate credibility interval using binomial bayes distribution
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/prep.R
 \name{bsDataCheck}
 \alias{bsDataCheck}
-\title{Helper function to check input Bisulfite sequencing data and convert if needed}
+\title{Check bisulfite sequencing data and convert if needed}
 \usage{
 bsDataCheck(bsData)
 }
@@ -14,5 +14,5 @@ A \code{list} of \code{data.table} objects that each contain bisulfite
 sequencing data
 }
 \description{
-Helper function to check input Bisulfite sequencing data and convert if needed
+Check bisulfite sequencing data and convert if needed
 }
