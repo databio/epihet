@@ -14,3 +14,20 @@
 #' @usage data(exampleBSDT)
 #' @format A data.table, data.frame object
 NULL
+
+#' A named \code{list} of 4 \code{data.table} objects, each of which has 10000 rows
+#' containing 5 columns of methylation data for a given sample:
+#'\itemize{
+#'  \item{chr} {chromosome of methylation read}
+#'  \item{start} {starting position for methylation read}
+#'  \item{methylCount} {number of methylated reads}
+#'  \item{coverage} {number of reads total}
+#'  \item{sampleName} {name of the particular sample}
+#'  }
+#'
+#' @docType data
+#' @keywords datasets
+#' @name BSDTlist
+#' @usage data(BSDTlist)
+#' @format A list object
+NULL
