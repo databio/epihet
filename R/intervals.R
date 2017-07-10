@@ -1,4 +1,4 @@
-#' Calculate credibility interval using binomial bayes distribution
+#' Get credibility interval via binomial bayes distribution
 #'
 #' @param bsData Bisulfite sequencing data
 #' @param methylCol Name of column containing methylation count;
@@ -32,7 +32,7 @@ BScredInterval = function(bsData,
 
 }
 
-#' Calculate credibility interval using binomial bayes distribution and caching
+#' Get credibility interval via binomial bayes distribution and caching
 #'
 #' @param bsData Bisulfite sequencing data
 #' @param methylCol Name of column containing methylation count;
