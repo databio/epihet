@@ -140,7 +140,17 @@ calculateRPIM = function(sampleName,
 #' analyzed; each element in the vector represents the the average proportion of
 #' intermediate methylation relative to the other samples;
 #' all samples are represented and elements named accordingly
-
+#'@examples
+#'
+#'data("BSDTlist", package = "RPIM")
+#'
+#'if (require(simpleCache)) {
+#'RPIM(BSDTlist, cacheDir = "~")
+#'
+#'simpleCache::setSharedCacheDir("cache")
+#'RPIM(BSDTlist)
+#'RPIM(BSDTlist, imLower = .2, imUpper = .8)
+#'}
 #' @export
 RPIM = function(bsData,
                 cacheDir = getOption("RESOURCES.RCACHE"),

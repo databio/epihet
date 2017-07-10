@@ -54,6 +54,18 @@ two extremes can be used as a measure of sample heterogeneity.
 This script (an incipient R package) provides functions
 for assessing the RPIM given input DNA methylation calls.
 }
+\examples{
+
+data("BSDTlist", package = "RPIM")
+
+if (require(simpleCache)) {
+RPIM(BSDTlist, cacheDir = "~")
+
+simpleCache::setSharedCacheDir("cache")
+RPIM(BSDTlist)
+RPIM(BSDTlist, imLower = .2, imUpper = .8)
+}
+}
 \references{
 \url{http://github.com/databio/RPIM}
 }

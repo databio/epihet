@@ -41,3 +41,10 @@ A \code{data.table} object with the following columns:
 \description{
 Given bisulfite sequencing data, prepares the intermediate methylation (IM) table
 }
+\examples{
+
+data("exampleBSDT", package = "RPIM")
+
+prepIM(exampleBSDT)
+
+}
