@@ -93,6 +93,10 @@ BScredIntervalCache = function(bsData,
 #' coverage; this serves as a cache that can replace the need to perform the
 #' computationally expensive probability estimation
 #'
+#'@examples
+#'
+#'cacheBinomConfIntervals(100,100, confLevel = .95)
+#'
 #' @export
 cacheBinomConfIntervals = function(maxHits, maxTotal, confLevel) {
 

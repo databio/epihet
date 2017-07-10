@@ -24,3 +24,8 @@ computationally expensive probability estimation
 \description{
 Cache binomial confidence intervals
 }
+\examples{
+
+cacheBinomConfIntervals(100,100, confLevel = .95)
+
+}
