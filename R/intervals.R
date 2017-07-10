@@ -13,7 +13,6 @@
 #' indicating upper and lower limits of Bayesian binomial confidence interval
 #' for methylation
 #'
-#' @export
 BScredInterval = function(bsData,
                             methylCol="methylCount",
                             coverageCol="coverage",
@@ -48,7 +47,6 @@ BScredInterval = function(bsData,
 #' indicating upper and lower limits of Bayesian binomial confidence interval
 #' for methylation
 #'
-#' @export
 BScredIntervalCache = function(bsData,
                                 cachedBinomialIntervals,
                                 methylCol="methylCount",
