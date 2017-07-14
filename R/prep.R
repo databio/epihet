@@ -97,3 +97,19 @@ bsDataCheck = function(bsData) {
     bsData
 
 }
+
+#' Check to see if bisulfite sequencing data has only one sample
+#'
+#' @param bsData Bisulfite sequencing data
+#'
+#'@return A boolean indicating whether or not the data is likely to only
+#'represent a single sample
+singleSample = function(bsData) {
+
+    cond1 = inherits(bsData, "data.table")
+
+    cond2 = is.list(bsData) & length(bsData) == 1
+
+    any(cond1,cond2)
+
+}

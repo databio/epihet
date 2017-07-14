@@ -44,6 +44,12 @@ PIM = function(bsData,
 
     bsData = bsDataCheck(bsData)
 
+    if(!singleSample(bsData)) {
+
+        stop("Your data appears to include more than one sample. Consider reformatting or try using RPIM() to calculate relative proportion of intermediate methylation across all samples.")
+
+    }
+
     imtab = prepIM(bsData,
                     cacheDir = cacheDir,
                     imLower = imLower,
@@ -163,6 +169,12 @@ RPIM = function(bsData,
                 confLevel = .95) {
 
     bsData = bsDataCheck(bsData)
+
+    if(singleSample(bsData)) {
+
+        stop("Your data appears to only include one sample. Consider reformatting or try using PIM() to calculate proportion of intermediate methylation for an individual.")
+
+    }
 
     x = sapply(names(bsData),
                 calculateRPIM,
