@@ -3,5 +3,4 @@
 export(PIM)
 export(RPIM)
 export(cacheBinomConfIntervals)
-export(prepIM)
 importFrom(data.table,":=")

@@ -32,7 +32,6 @@
 #'
 #'prepIM(exampleBSDT)
 #'
-#' @export
 prepIM = function(bsData,
                     cacheDir = getOption("RESOURCES.RCACHE"),
                     imLower = .25,
