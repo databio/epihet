@@ -42,10 +42,3 @@ A \code{data.table} object with the following columns:
 \description{
 Prepares the intermediate methylation (IM) table
 }
-\examples{
-
-data("exampleBSDT", package = "RPIM")
-
-prepIM(exampleBSDT)
-
-}

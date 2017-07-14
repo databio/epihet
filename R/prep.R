@@ -26,12 +26,6 @@
 #'  \item{IM} {boolean indicator of itermediate methylation status}
 #'  }
 #'
-#'@examples
-#'
-#'data("exampleBSDT", package = "RPIM")
-#'
-#'prepIM(exampleBSDT)
-#'
 prepIM = function(bsData,
                     cacheDir = getOption("RESOURCES.RCACHE"),
                     imLower = .25,
