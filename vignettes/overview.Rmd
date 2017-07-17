@@ -12,6 +12,7 @@ vignette: >
 
 ```{r setup, include = F}
 knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
+simpleCache::setSharedCacheDir("~")
 ```
 
 ## Overview
@@ -25,44 +26,31 @@ We define a site as IM (Intermediate Methylation) if its credibility interval is
 - histogram of methylation to demonstrate IM?
 - scientific application / interpretation of IM?
 
+## Installation
+
+```{r}
+
+```
+
 ## Data Preparation
 
-- BSDT 
-- `MIRA::BSreadBiSeq()`
-- `MIRA::bsseqToDataTable()`
-- show some example data
+### Bisulfite `data.table` (BSDT) format
 
-## PIM
+Internally the **RPIM** package uses `data.table`[^1] to efficiently read and manipulate the bisulfite sequence data. An example of a single sample in BSDT format is included with the package:
 
-- PIM explained
-- forumla
-- example calculation
+```{r}
+data("exampleBSDT", package = "RPIM")
 
-## RPIM
+head(exampleBSDT)
+```
 
-- RPIM explained
-- forumla
-- example calculation
+To analyze multiple samples (i.e. calculate *relative* proportion of intermediate methylation), you can combine the data as a `list` of `data.table` objects. The example below demonstrates how to read in multiple sample files in .bed format.  
 
-## Caching
+**nb** the code includes the `BSreadBiSeq()` function from the `MIRA` package[^2], which will generate a BSDT for each sample before combining them all together in a single named `list` object.
 
 ```{r, eval = F}
-# devtools::install_github("databio/MIRA")
-# devtools::install_github("databio/simpleCache")
-
-library(RPIM)
 
 dat = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_L10.bed")
-
-# have to setSharedCacheDir()
-simpleCache::setSharedCacheDir("cache")
-
-imres = calculatePIM(dat)
-
-###############################
-
-# relative proportion of sites
-
 dat2 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T133.bed")
 dat3 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T111.bed")
 dat4 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T120.bed")
@@ -70,17 +58,99 @@ dat4 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T120.bed")
 alldat = rbind(dat,dat2, dat3, dat4)
 allsplitdat = split(alldat, alldat$sampleName)
 
-RPIM(allsplitdat)
+```
 
-# try this with bsseq object
+### `BSseq` format
+
+The `bsseq` package is a widely used toolkit for analyzing Bisulfite sequencing data, and includes a `BSseq` data structure[^3]. `RPIM` is designed to interface directly with objects of this class.
+
+The code below shows a trivial example of generating a `BSseq` object:
+
+```{r}
+# source("https://bioconductor.org/biocLite.R")
+# biocLite("bsseq")
+library(bsseq)
+
+M = matrix(sample(0:4,9, replace = T), 3, 3)
+Cov = matrix(1:9, 3, 3)
+
+BS1 = BSseq(chr = c("chr1", "chr2", "chr1"), pos = c(1,2,3),
+            M = M, Cov = Cov, sampleNames = c("A","B", "C"))
+
+BS1
+```
+
+The `bsseqData` package[^4] contains more robust examples of this data format:
+
+```{r}
 # source("https://bioconductor.org/biocLite.R")
 # biocLite("bsseqData")
-
 library(bsseqData)
+
 data(BS.cancer.ex)
-
-bsseqdat = MIRA::bsseqToDataTable(BS.cancer.ex)
-
-RPIM(bsseqdat, cacheDir = "foo")
-
+BS.cancer.ex
 ```
+
+With the data prepared as described above, you can input the object directly to either the `PIM()` or `RPIM()` function to calculate the proportion of intermediate methylation or relative proportion of intermediate methylation. 
+
+## PIM
+
+Calculating the proportion of intermediate methylation can be useful in the context of a single sample. 
+
+The `PIM()` function takes Bisulfite sequencing data for a single sample and returns the a vector of length 1 indicating the value for the proportion of intermediate methylation:
+
+```{r}
+PIM(exampleBSDT)
+```
+
+- PIM explained
+- formula
+- example calculation
+
+## RPIM
+
+- RPIM explained
+- formula
+- example calculation
+
+```{r}
+data("BSDTlist", package = "RPIM")
+
+RPIM(BSDTlist)
+RPIM(BS.cancer.ex)
+```
+
+
+## Caching
+
+In order to make the intermediate methylation calculations as efficient as possible, `RPIM` employs optional caching via the `simpleCache` package[^5]. 
+
+If `simpleCache` is installed, `RPIM` will look for a cache directory specified in the "RESOURCES.RACHE" global option. If none is available, you can set this preference as follows:
+
+```{r, eval = F}
+# devtools::install_github("databio/simpleCache")
+
+# set a shared cache directory
+simpleCache::setSharedCacheDir("cache")
+
+PIM(exampleBSDT)
+RPIM(BSDTlist)
+
+# alternatively specify a cache directory on each RPIM call
+PIM(exampleBSDT, cacheDir = "cache")
+RPIM(BSDTlist, cacheDir = "cache")
+```
+
+Note that the `simpleCache()` creates a directory to store cached data. In this case, the cache consists of the binomial confidence interval used in the PIM and RPIM calculations. For more information about caching with `simpleCache` visit the development repository: <https://github.com/databio/simpleCache>
+
+## References
+
+[^1]: Matt Dowle and Arun Srinivasan (2017). data.table: Extension of `data.frame`. R package version 1.10.4. https://CRAN.R-project.org/package=data.table
+
+[^2]: Sheffield NC, Bock C and Lawson J (2017). _DNA methylation heterogeneity defines a disease spectrum in Ewing sarcoma_. R package version 0.99.5, <URL: http://databio.org/mira>.
+
+[^3]: Hansen KD, Langmead B and Irizarry RA (2012). “BSmooth: from whole genome bisulfite sequencing reads to differentially methylated regions.” Genome Biology, 13(10), pp. R83. doi: 10.1186/gb-2012-13-10-r83.
+
+[^4]: Hansen KD (2017). bsseqData: Example whole genome bisulfite data for the bsseq package. R package version 0.14.0.
+
+[^5]: Sheffield, N and Nagraj VP (2017). simpleCache: A Simple Package for Caching R Objects. R package version 0.0.1. http://www.github.com/sheffien/simpleCache
