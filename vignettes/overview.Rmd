@@ -49,6 +49,9 @@ To analyze multiple samples (i.e. calculate *relative* proportion of intermediat
 **nb** the code includes the `BSreadBiSeq()` function from the `MIRA` package[^2], which will generate a BSDT for each sample before combining them all together in a single named `list` object.
 
 ```{r, eval = F}
+fp = "http://cloud.databio.org.s3.amazonaws.com/vignettes/RPIM_vignette_data.tar.gz"
+download.file(fp, destfile = "RPIM_vignette_data.tar.gz")
+untar("RPIM_vignette_data.tar.gz")
 
 dat = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_L10.bed")
 dat2 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T133.bed")
@@ -57,7 +60,6 @@ dat4 = MIRA::BSreadBiSeq("data/RRBS_cpgMethylation_EWS_T120.bed")
 
 alldat = rbind(dat,dat2, dat3, dat4)
 allsplitdat = split(alldat, alldat$sampleName)
-
 ```
 
 ### `BSseq` format
