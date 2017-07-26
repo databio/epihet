@@ -3,4 +3,4 @@ sudo: false
 cache: packages
 use_bioc: true
 bioc_required: true
-r_github_packages: databio/MIRA
+r_github_packages: databio/MIRA, databio/simpleCache
