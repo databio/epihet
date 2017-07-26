@@ -19,7 +19,9 @@ Suggests:
     knitr,
     testthat,
     BiocStyle,
-    rmarkdown
+    rmarkdown,
+    bsseq,
+    bsseqData
 Enhances:
     simpleCache
 RoxygenNote: 6.0.1.9000
