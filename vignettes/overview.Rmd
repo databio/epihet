@@ -1,5 +1,5 @@
 ---
-title: "Relative Proportion of Intermediate Methylation (RPIM)"
+title: "Assessing epigenetic heterogeneity with the Proportion of Intermediate Methylation (PIM) score"
 author: "Nathan Sheffield & VP Nagraj"
 date: "`r Sys.Date()`"
 output: 
@@ -17,14 +17,13 @@ simpleCache::setSharedCacheDir("~")
 
 ## Overview
 
-The RPIM package will allow you to calculate an epigenetic heterogeneity score from DNA methylation data. The PIM, or *Proportion of sites with Intermediate Methylation*, is a score that measures the epigenetic heterogeneity in a bisulfite sequencing sample. This score is based on the assumption that a homogeneous sample will have mostly CpGs with either 0 or 100 percent DNA methylation. It follows that the proportion of sites that differ from these two extremes can be used as a measure of cell-to-cell heterogeneity. This enables you to estimate sample heterogeneity of single cells without doing single cell experiments.
+The RPIM package will allow you to calculate an epigenetic heterogeneity score from DNA methylation data. The PIM, or *Proportion of sites with Intermediate Methylation*, is a score that measures the epigenetic heterogeneity in a bisulfite sequencing sample. 
 
-## Intermediate Methylation
+## Epigenetic heterogeneity
 
-We define a site as IM (Intermediate Methylation) if its credibility interval is not completely below .25, or above .75. Other sites are more likely to be either 0 or 1 (or very close).
+DNA methylation is fundamentally a binary signal: on a given CpG site in a single DNA strand, the C is either methylated or not methylated (ignoring the rare case of hemimethylation). But experimentally, it is difficult to produce single-allele DNA methylation data, so DNA methylation data typically arises from bulk experiments made up of a population of cells. Bulk experiments produce methylation values that vary anywhere from 0% to 100% (and are typically not at either extreme). The deviation from the binary signal is due to cell-to-cell heterogeneity, and a bulk DNA methylation level is interpreted as the proportion of cells in the population that had a methylated allele.
 
-- histogram of methylation to demonstrate IM?
-- scientific application / interpretation of IM?
+In a purely homogeneous sample (where every cell has an identical methylation pattern), DNA methylation at any given CpG site would mimic the binary case and be be either 0% or 100%, because there is no cell-to-cell variation. Therefore, as a sample becomes more heterogeneous, it should have decreasing 0% and 100% values and increasing evidence of CpG sites with intermediate methylation. The RPIM package leverages this observation to produce a score for epigenetic heterogeneity from bulk DNA methylation data: the Proportion of sites with Intermediate Methylation, or PIM score. In a sense, this enables you to estimate sample heterogeneity of single cells without doing single cell experiments.
 
 ## Installation
 
@@ -33,14 +32,11 @@ devtools::install_github("databio/RPIM")
 library(RPIM)
 ```
 
-## Data Preparation
+## Importing data
 
-RPIM functions will accept data in two different formats:
+To calculate a PIM score for a given sample, we require as input a table that specifies each CpG site assessed in the sample and its methylation level. The functions will accept input data in two different formats:
 
-* `BSDT` objects, which are simply `data.table` objects with specific column names.
-* `bsseq` objects, from the Bioconductor `bsseq` package.
-
-**Bisulfite `data.table` (BSDT) format.** Internally the **RPIM** package uses `data.table`[^1] to efficiently read and manipulate the bisulfite sequence data. An example of a single sample in BSDT format is included with the package:
+1. `BSDT` objects, which are simply `data.table` objects with specific column names. Internally the **RPIM** package uses `data.table`[^1] to efficiently read and manipulate the bisulfite sequence data. An example of a single sample in BSDT format is included with the package:
 
 ```{r}
 data("exampleBSDT", package = "RPIM")
@@ -48,25 +44,7 @@ data("exampleBSDT", package = "RPIM")
 head(exampleBSDT)
 ```
 
-To analyze multiple samples (i.e. calculate *relative* proportion of intermediate methylation), you can combine the data as a `list` of `data.table` objects. The example below demonstrates how to read in multiple sample files in .bed format.  
-
-The code includes the `BSreadBiSeq()` function from the `MIRA` package[^2], which will generate a BSDT for each sample before combining them all together in a single named `list` object.
-
-```{r, eval=FALSE}
-fp = "http://cloud.databio.org.s3.amazonaws.com/vignettes/RPIM_vignette_data.tar.gz"
-download.file(fp, destfile = "RPIM_vignette_data.tar.gz")
-untar("RPIM_vignette_data.tar.gz")
-
-dat = MIRA::BSreadBiSeq("RRBS_cpgMethylation_EWS_L10.bed")
-dat2 = MIRA::BSreadBiSeq("RRBS_cpgMethylation_EWS_T133.bed")
-dat3 = MIRA::BSreadBiSeq("RRBS_cpgMethylation_EWS_T111.bed")
-dat4 = MIRA::BSreadBiSeq("RRBS_cpgMethylation_EWS_T120.bed")
-
-alldat = rbind(dat,dat2, dat3, dat4)
-allsplitdat = split(alldat, alldat$sampleName)
-```
-
-**`BSseq` format**. The `bsseq` package is a widely used toolkit for analyzing Bisulfite sequencing data, and includes a `BSseq` data structure[^3]. `RPIM` interfaces directly with objects of this class.
+2. `bsseq` objects, from the Bioconductor `bsseq` package. RPIM will accept `bsseq` objects as well, enabling a nice interface to existing bisulfite sequencing analysis. The `bsseq` package is a widely used toolkit for analyzing Bisulfite sequencing data, and includes a `BSseq` data structure[^3]. `RPIM` interfaces directly with objects of this class.
 
 The code below shows a trivial example of generating a `BSseq` object:
 
@@ -93,21 +71,25 @@ data(BS.cancer.ex)
 BS.cancer.ex
 ```
 
-With the data prepared as described above, you can input the object directly to either the `PIM()` or `RPIM()` function to calculate the proportion of intermediate methylation or relative proportion of intermediate methylation. 
+## Calculating the PIM score
 
-## PIM
+The RPIM package provides two primary functions that will be of interest: `PIM()` and `RPIM()`. With the data prepared as described above, you can input the object directly to either the `PIM()` or `RPIM()` functions.
 
-The PIM score is a sample-level score, which means it is relative only to a sample and does not depend at all on any other samples. Every sample has a PIM score, which ranges from 0 to 1; 0 would mean that sample has no CpGs with intermediate methylation, indicating a perfectly homogenous sample, while 1 would indicate that every CpG has intermediate methylation, indicating a very heterogeneous sample. The `PIM()` function takes bisulfite sequencing data for a single sample and returns a single value for the proportion of intermediate methylation. Calculate it like this:
+The PIM score is a sample-level score, which means it is relative only to a sample and does not depend at all on any other samples. Every sample has a PIM score, which ranges from 0 to 1; 0 would mean that sample has no CpGs with intermediate methylation, indicating a perfectly homogeneous sample, while 1 would indicate that every CpG has intermediate methylation, indicating a very heterogeneous sample. The `PIM()` function takes bisulfite sequencing data for a single sample and returns a single value for the proportion of intermediate methylation. Calculate it like this:
 
 ```{r}
 PIM(exampleBSDT)
 ```
 
+Under the hood, the `PIM()` function defines a site as IM (Intermediate Methylation) using a Bayesian credibility interval based on the number of reads that covered the CpG. The credibility interval provides a range of values surrounding the estimated DNA methylation level, which varies based on coverage level. If a credibility interval is not completely below .25, or above .75, the CpG is classified as Intermediately Methylated.
+
 ## RPIM
 
-We may also be interested in a *relative PIM* score, or RPIM for short. The RPIM score is a collection-level score. Each sample has an RPIM score, but this score is relative to the other samples in the dataset. This means RPIM will change if you change the samples you include. The RPIM shows the *relative enrichment or depletion* of intermediate methylation for a given sample when compared to all other samples. It can be either negative or positive, with a 0 score indicating that the same is the median sample. The higher the magnitude of the score (or further away it is from 0), the more heterogeneous (positive) or homogenous (negative) that sample is relative to the others.
+One limitation with the PIM score is that it may not always be comparable from sample to sample if the CpGs covered were of different classes. For example, if one sample covered more CpGs in CpG islands than another, and we know that CpGs in islands are more likely to be uniformly unmethylated (even in a more heterogeneous sample), then then incongruent coverage distribution would skew the PIM scores of the samples, making them incomparable.
 
-The RPIM calculation accounts for differential coverage by doing a pairwise comparisons and restricting each to the subset of CpGs that are present in both samples.
+The RPIM calculation accounts for differential coverage by doing a pairwise comparisons and restricting each to the subset of CpGs that are present in both samples. RPIM addresses this coverage issue by introducing a *relative PIM* score, or RPIM for short. RPIM is based on the PIM score, but it operates on two samples at a time by first restricting the set of CpGs to only those that are covered in both samples, and then calculating the log ratio of the number of IM sites in one sample versus the other. This controls for differential coverage and gives a relative score that no longer represents the absolute proportion of IM sites, but can be either positive or negative, depending on whether a sample had more or fewer IM sites than another. Finally, the RPIM score is summarized for a given sample by averaging the pairwise comparisons with all other samples in the dataset.
+
+Thus, each sample has an RPIM score, but this score is relative to all the other samples in the dataset. This means RPIM will change if you change the samples you include. The RPIM shows the *relative enrichment or depletion* of intermediate methylation for a given sample when compared to all other samples. It can be either negative or positive, with a 0 score indicating that the same is the median sample. The higher the magnitude of the score (or further away it is from 0), the more heterogeneous (positive) or homogenous (negative) that sample is relative to the others.
 
 Calculate RPIM like this:
 ```{r}
@@ -116,7 +98,6 @@ data("BSDTlist", package="RPIM")
 RPIM(BSDTlist)
 RPIM(BS.cancer.ex)
 ```
-
 
 ## Caching
 
@@ -151,3 +132,25 @@ Note that the `simpleCache()` creates a directory to store cached data. In this 
 [^4]: Hansen KD (2017). bsseqData: Example whole genome bisulfite data for the bsseq package. R package version 0.14.0.
 
 [^5]: Sheffield, N and Nagraj VP (2017). simpleCache: A Simple Package for Caching R Objects. R package version 0.0.1. http://www.github.com/sheffien/simpleCache
+
+
+
+
+
+To analyze multiple samples (i.e. calculate *relative* proportion of intermediate methylation), you can combine the data as a `list` of `data.table` objects. The example below demonstrates how to read in multiple sample files in .bed format.  
+
+The code includes the `BSreadBiSeq()` function from the `MIRA` package[^2], which will generate a BSDT for each sample before combining them all together in a single named `list` object.
+
+```{r, eval=FALSE}
+fp = "http://cloud.databio.org.s3.amazonaws.com/vignettes/RPIM_vignette_data.tar.gz"
+download.file(fp, destfile = "RPIM_vignette_data.tar.gz")
+untar("RPIM_vignette_data.tar.gz")
+
+dat = MIRA::BSreadBiSeq("RRBS_cpgMethylation_EWS_L10.bed")
+dat2 = MIRA::BSreadBiSeq("RRBS_cpgMethylation_EWS_T133.bed")
+dat3 = MIRA::BSreadBiSeq("RRBS_cpgMethylation_EWS_T111.bed")
+dat4 = MIRA::BSreadBiSeq("RRBS_cpgMethylation_EWS_T120.bed")
+
+alldat = rbind(dat,dat2, dat3, dat4)
+allsplitdat = split(alldat, alldat$sampleName)
+```
