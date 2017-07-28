@@ -17,9 +17,9 @@ simpleCache::setSharedCacheDir("~")
 
 ## Overview
 
-The RPIM package will allow you to calculate an epigenetic heterogeneity score from DNA methylation data. The PIM, or *Proportion of sites with Intermediate Methylation*, is a score that measures the epigenetic heterogeneity in a bisulfite sequencing sample. 
+The RPIM package will allow you to calculate an epigenetic heterogeneity score from DNA methylation data. The score is called PIM, or *Proportion of sites with Intermediate Methylation*.
 
-## Epigenetic heterogeneity
+## Epigenetic heterogeneity and DNA methylation
 
 DNA methylation is fundamentally a binary signal: on a given CpG site in a single DNA strand, the C is either methylated or not methylated (ignoring the rare case of hemimethylation). But experimentally, it is difficult to produce single-allele DNA methylation data, so DNA methylation data typically arises from bulk experiments made up of a population of cells. Bulk experiments produce methylation values that vary anywhere from 0% to 100% (and are typically not at either extreme). The deviation from the binary signal is due to cell-to-cell heterogeneity, and a bulk DNA methylation level is interpreted as the proportion of cells in the population that had a methylated allele.
 
