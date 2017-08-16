@@ -17,7 +17,7 @@ simpleCache::setSharedCacheDir("~")
 
 ## Overview
 
-The RPIM package will allow you to calculate an epigenetic heterogeneity score from DNA methylation data. The score is called PIM, or *Proportion of sites with Intermediate Methylation*.
+The epihet package will allow you to calculate an epigenetic heterogeneity score from DNA methylation data. The score is called PIM, or *Proportion of sites with Intermediate Methylation*.
 
 ## Epigenetic heterogeneity and DNA methylation
 
@@ -28,8 +28,8 @@ In a purely homogeneous sample (where every cell has an identical methylation pa
 ## Installation
 
 ```{r}
-devtools::install_github("databio/RPIM")
-library(RPIM)
+devtools::install_github("databio/epihet")
+library(epihet)
 ```
 
 ## Importing data
@@ -39,12 +39,12 @@ To calculate a PIM score for a given sample, we require as input a table that sp
 1. `BSDT` objects, which are simply `data.table` objects with specific column names. Internally the **RPIM** package uses `data.table`[^1] to efficiently read and manipulate the bisulfite sequence data. An example of a single sample in BSDT format is included with the package:
 
 ```{r}
-data("exampleBSDT", package = "RPIM")
+data("exampleBSDT", package="epihet")
 
 head(exampleBSDT)
 ```
 
-2. `bsseq` objects, from the Bioconductor `bsseq` package. RPIM will accept `bsseq` objects as well, enabling a nice interface to existing bisulfite sequencing analysis. The `bsseq` package is a widely used toolkit for analyzing Bisulfite sequencing data, and includes a `BSseq` data structure[^3]. `RPIM` interfaces directly with objects of this class.
+2. `bsseq` objects, from the Bioconductor `bsseq` package. `epihet` will accept `bsseq` objects as well, enabling a nice interface to existing bisulfite sequencing analysis. The `bsseq` package is a widely used toolkit for analyzing Bisulfite sequencing data, and includes a `BSseq` data structure[^3]. `epihet` interfaces directly with objects of this class.
 
 The code below shows a trivial example of generating a `BSseq` object:
 
@@ -73,7 +73,7 @@ BS.cancer.ex
 
 ## Calculating the PIM score
 
-The RPIM package provides two primary functions that will be of interest: `PIM()` and `RPIM()`. With the data prepared as described above, you can input the object directly to either the `PIM()` or `RPIM()` functions.
+The epihet package provides two primary functions that will be of interest: `PIM()` and `RPIM()`. With the data prepared as described above, you can input the object directly to either the `PIM()` or `RPIM()` functions.
 
 The PIM score is a sample-level score, which means it is relative only to a sample and does not depend at all on any other samples. Every sample has a PIM score, which ranges from 0 to 1; 0 would mean that sample has no CpGs with intermediate methylation, indicating a perfectly homogeneous sample, while 1 would indicate that every CpG has intermediate methylation, indicating a very heterogeneous sample. The `PIM()` function takes bisulfite sequencing data for a single sample and returns a single value for the proportion of intermediate methylation. Calculate it like this:
 
@@ -83,7 +83,7 @@ PIM(exampleBSDT)
 
 Under the hood, the `PIM()` function defines a site as IM (Intermediate Methylation) using a Bayesian credibility interval based on the number of reads that covered the CpG. The credibility interval provides a range of values surrounding the estimated DNA methylation level, which varies based on coverage level. If a credibility interval is not completely below .25, or above .75, the CpG is classified as Intermediately Methylated.
 
-## RPIM
+## Calculating relative PIM (RPIM)
 
 One limitation with the PIM score is that it may not always be comparable from sample to sample if the CpGs covered were of different classes. For example, if one sample covered more CpGs in CpG islands than another, and we know that CpGs in islands are more likely to be uniformly unmethylated (even in a more heterogeneous sample), then then incongruent coverage distribution would skew the PIM scores of the samples, making them incomparable.
 
@@ -93,7 +93,7 @@ Thus, each sample has an RPIM score, but this score is relative to all the other
 
 Calculate RPIM like this:
 ```{r}
-data("BSDTlist", package="RPIM")
+data("BSDTlist", package="epihet")
 
 RPIM(BSDTlist)
 RPIM(BS.cancer.ex)
