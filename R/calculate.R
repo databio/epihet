@@ -2,59 +2,60 @@
 #' of intermediate methylation sites.
 #'
 #' @param bsData Bisulfite sequencing data;
-#' @param cacheDir If using caching, this argument specifies the directory
-#' to use for storing the cache;
-#' defaults to global option for \code{RESOURCES.RACHE};
-#' if no such option has been specified you must provide one
-#' @param imLower The lower boundary for intermediate methylation (IM);
-#' if a site is entirely below this threshold
-#' (or if any part of its binomial credibility interval overlaps this boundary)
-#' it is not considered IM;
-#' defaults to .25
-#' @param imUpper The upper boundary for intermediate methylation (IM);
-#' if a site is entirely above this threshold
-#' (or if any part of its binomial credibility interval overlaps this boundary)
-#' it is not considered IM;
-#' defaults to .75
-#' @param confLevel A decimal indicating the level of confidence
-#' to be used while creating cached the binomial bayes credibility interval;
-#' default is .95 for 95 percent confidence
+#' @param cacheDir If using caching, this argument specifies the directory to
+#'     use for storing the cache; defaults to global option for
+#'     \code{RESOURCES.RACHE}; if no such option has been specified you must
+#'     provide one
+#' @param imLower The lower boundary for intermediate methylation (IM); if a
+#'     site is entirely below this threshold (or if any part of its binomial
+#'     credibility interval overlaps this boundary) it is not considered IM;
+#'     defaults to .25
+#' @param imUpper The upper boundary for intermediate methylation (IM); if a
+#'     site is entirely above this threshold (or if any part of its binomial
+#'     credibility interval overlaps this boundary) it is not considered IM;
+#'     defaults to .75
+#' @param confLevel A decimal indicating the level of confidence to be used
+#'     while creating cached the binomial bayes credibility interval; default is
+#'     .95 for 95 percent confidence
 #'
-#' @return A single value (numeric vector of length 1) indicating the
-#' proportion of intermediate methylation (PIM) of an individual sample
+#' @return A single value (numeric vector of length 1) indicating the proportion
+#'     of intermediate methylation (PIM) of an individual sample
 #'
 #'@examples
 #'
-#'data("exampleBSDT", package = "RPIM")
+#'data("exampleBSDT", package="epihet")
 #'
 #'if (require(simpleCache)) {
-#'PIM(exampleBSDT, cacheDir = "~")
+#'PIM(exampleBSDT, cacheDir="~")
 #'
 #'simpleCache::setSharedCacheDir("cache")
 #'PIM(exampleBSDT)
-#'PIM(exampleBSDT, cacheDir = "~", imLower = .2, imUpper = .8)
+#'PIM(exampleBSDT, cacheDir="~", imLower=.2, imUpper=.8)
 #'}
 #' @export
 
 PIM = function(bsData,
-                cacheDir = getOption("RESOURCES.RCACHE"),
-                imLower = 0.25,
-                imUpper = 0.75,
-                confLevel = .95) {
+                cacheDir=getOption("RESOURCES.RCACHE"),
+                imLower=0.25,
+                imUpper=0.75,
+                confLevel=.95) {
 
     bsData = bsDataCheck(bsData)
 
     if(!singleSample(bsData)) {
 
-        stop("Your data appears to include more than one sample. Consider reformatting or try using RPIM() to calculate relative proportion of intermediate methylation across all samples.")
+        stop(strwrap("Your data appears to include more than one sample.
+        Consider reformatting or try using RPIM() to calculate relative
+        proportion of intermediate methylation across all samples.", initial="",
+        prefix=" ")
 
     }
 
     imtab = prepIM(bsData,
-                    cacheDir = cacheDir,
-                    imLower = imLower,
-                    imUpper = imUpper,
-                    confLevel = confLevel)
+                    cacheDir=cacheDir,
+                    imLower=imLower,
+                    imUpper=imUpper,
+                    confLevel=confLevel)
 
     sum(imtab$IM == TRUE) / nrow(imtab)
 
@@ -150,7 +151,7 @@ calculateRPIM = function(sampleName,
 #'     samples are represented and elements named accordingly
 #'@examples
 #'
-#'data("BSDTlist", package="RPIM")
+#'data("BSDTlist", package="epihet")
 #'
 #'if (require(simpleCache)) {
 #'RPIM(BSDTlist, cacheDir="~")
