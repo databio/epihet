@@ -14,6 +14,7 @@ Description: Provides a score called PIM that measures the epigenetic
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 2.10)
 Imports:
     binom, 
     data.table,
