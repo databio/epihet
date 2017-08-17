@@ -187,6 +187,6 @@ RPIM = function(bsData,
 
     diag(x) = NA
 
-    colMeans(x, na.rm= RUE)
+    colMeans(x, na.rm=TRUE)
 
 }
