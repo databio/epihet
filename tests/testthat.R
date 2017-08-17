@@ -1,4 +1,4 @@
 library(testthat)
-library(RPIM)
+library(epihet)
 
-test_check("RPIM")
+test_check("epihet")
