@@ -4,8 +4,8 @@ test_that("calculations return vectors of correct length", {
 
     skip_on_bioc()
 
-    data("exampleBSDT", package = "RPIM")
-    data("BSDTlist", package = "RPIM")
+    data("exampleBSDT", package = "epihet")
+    data("BSDTlist", package = "epihet")
 
     # only first line of message is necessary in this case
     pimres = PIM(exampleBSDT, cacheDir = "~")

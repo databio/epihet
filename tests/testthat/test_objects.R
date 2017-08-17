@@ -11,8 +11,8 @@ test_that("PIM and RPIM warn based on detected number of samples", {
 
     skip_on_bioc()
 
-    data("exampleBSDT", package = "RPIM")
-    data("BSDTlist", package = "RPIM")
+    data("exampleBSDT", package = "epihet")
+    data("BSDTlist", package = "epihet")
 
     # PIM errors when given multiple samples
     expect_error(PIM(BSDTlist, cacheDir = "~"), NULL)
