@@ -35,15 +35,20 @@ prepIM = function(bsData,
     binomCacheName = paste0("cachedBinomialIntervals", round(confLevel*100))
 
     if (requireNamespace("simpleCache", quietly=TRUE)) {
-        simpleCache::simpleCache(binomCacheName, {
+
+        suppressMessages ({
+            simpleCache::simpleCache(binomCacheName, {
             res = cacheBinomConfIntervals(2000, 2000,confLevel)
         }, cacheDir=cacheDir, buildEnvir=list(confLevel=confLevel), loadEnvir=globalenv())
+        })
 
         cachedBinomialIntervals = eval(parse(
             text = paste0("cachedBinomialIntervals", round(confLevel*100))))
 
         # Make the memory use smaller by eliminating unnecessary columns
-        cachedBinomialIntervals[, c("method","mean","shape1","shape2","sig"):=NULL]
+        suppressWarnings ({
+            cachedBinomialIntervals[, c("method","mean","shape1","shape2","sig"):=NULL]
+        })
 
         # Calculate the credibility interval
         CI = BScredIntervalCache(bsData,
