@@ -5,68 +5,62 @@
 \alias{RPIM}
 \alias{RPIM}
 \alias{RPIM-package}
-\title{Get the relative proportion of flagged sites.}
+\title{Calculate the relative proportion of intermediate methylation (RPIM) score.}
 \usage{
 RPIM(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = 0.25,
   imUpper = 0.75, confLevel = 0.95)
 }
 \arguments{
-\item{bsData}{Bisulfite sequencing data for multiple samples; a BSDT
-(bisulfite data.table) that has been split with splitDataTable
-(so, a list of BSDTs); one corresponds to each sample to test.}
+\item{bsData}{Bisulfite sequencing data for multiple samples. A list of BSDT
+(bisulfite data.table), one corresponds to each sample to test. This may
+also be a BSseq object}
 
 \item{cacheDir}{If using caching, this argument specifies the directory to
-use for storing the cache;
-defaults to global option for \code{RESOURCES.RACHE},
-if no such option has been specified you must provide one}
+use for storing the cache; defaults to global option for
+\code{RESOURCES.RACHE}. If no such option has been specified you must
+provide one}
 
-\item{imLower}{The lower boundary for intermediate methylation (IM);
-if a site is entirely below this threshold
-(or if any part of its binomial credibility interval overlaps this boundary)
-it is not considered IM;
+\item{imLower}{The lower boundary for intermediate methylation (IM); if a
+site is entirely below this threshold (or if any part of its binomial
+credibility interval overlaps this boundary) it is not considered IM;
 defaults to .25}
 
-\item{imUpper}{The upper boundary for intermediate methylation (IM);
-if a site is entirely above this threshold
-(or if any part of its binomial credibility interval overlaps this boundary)
-it is not considered IM;
+\item{imUpper}{The upper boundary for intermediate methylation (IM); if a
+site is entirely above this threshold (or if any part of its binomial
+credibility interval overlaps this boundary) it is not considered IM;
 defaults to .75}
 
-\item{confLevel}{A decimal indicating the level of confidence
-to be used while creating cached the binomial bayes credibility interval;
-default is .95 for 95 percent confidence}
+\item{confLevel}{A decimal indicating the level of confidence to be used
+while creating cached the binomial bayes credibility interval; default is
+.95 for 95 percent confidence}
 }
 \value{
 A named vector of the same length as the number of samples being
-analyzed; each element in the vector represents the the average proportion of
-intermediate methylation relative to the other samples;
-all samples are represented and elements named accordingly
+    analyzed; each element in the vector represents the the average
+    proportion of intermediate methylation relative to the other samples; all
+    samples are represented and elements named accordingly
 }
 \description{
-Get the relative proportion of flagged sites.
+Calculate the relative proportion of intermediate methylation (RPIM) score.
 
-RPIM is a score that measures the epigenetic heterogeneity in a
-bisulfite sequencing sample. Under the assumption that a homogeneous
-sample will have mostly CpGs with either 100% or 0% DNA methylation,
-it follows that the proportion of sites that differ from these
-two extremes can be used as a measure of sample heterogeneity.
-}
-\details{
-This script (an incipient R package) provides functions
-for assessing the RPIM given input DNA methylation calls.
+Provides a score called PIM that measures the epigenetic heterogeneity in a
+    bisulfite sequencing sample. Under the assumption that a homogeneous
+    sample will have mostly CpGs with either 100% or 0% DNA methylation, it
+    follows that the proportion of sites that differ from these two extremes
+    can be used as a measure of sample heterogeneity.
 }
 \examples{
 
-data("BSDTlist", package = "RPIM")
+data("BSDTlist", package="epihet")
 
 if (require(simpleCache)) {
-RPIM(BSDTlist, cacheDir = "~")
+RPIM(BSDTlist, cacheDir="~")
 
 simpleCache::setSharedCacheDir("cache")
 RPIM(BSDTlist)
-RPIM(BSDTlist, imLower = .2, imUpper = .8)
+RPIM(BSDTlist, imLower=.2, imUpper=.8)
 }
 }
 \references{
-\url{http://github.com/databio/RPIM}
+\url{http://github.com/databio/epihet}
 }

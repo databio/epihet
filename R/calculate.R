@@ -47,7 +47,7 @@ PIM = function(bsData,
         stop(strwrap("Your data appears to include more than one sample.
         Consider reformatting or try using RPIM() to calculate relative
         proportion of intermediate methylation across all samples.", initial="",
-        prefix=" ")
+        prefix=" "))
 
     }
 
@@ -173,7 +173,7 @@ RPIM = function(bsData,
 
         stop(strwrap("Your data appears to only include one sample. Consider
         reformatting or try using PIM() to calculate proportion of intermediate
-        methylation for an individual.", initial="", prefix=" ")
+        methylation for an individual.", initial="", prefix=" "))
 
     }
 
