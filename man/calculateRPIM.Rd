@@ -5,13 +5,17 @@
 \title{Helper function to get the relative proportion of flagged sites for a
 single sample versus all other samples}
 \usage{
-calculateRPIM(sampleName, bsData, cacheDir = getOption("RESOURCES.RCACHE"),
-  imLower = 0.25, imUpper = 0.75, confLevel = 0.95)
+calculateRPIM(sampleBaseline, sampleRelative, bsData,
+  cacheDir = getOption("RESOURCES.RCACHE"), imLower = 0.25,
+  imUpper = 0.75, confLevel = 0.95)
 }
 \arguments{
-\item{sampleName}{The sample (which should specify a name in the
+\item{sampleBaseline}{The sample (which should specify a name in the
 bisulfite sequencing data) to use as the baseline
 the proportion of sites for.}
+
+\item{sampleRelative}{The sample to compare relatively to the baseline sample for
+the proportion of sites.}
 
 \item{bsData}{Bisulfite sequencing data for multiple samples; a BSDT
 (bisulfite data.table) that has been split with splitDataTable

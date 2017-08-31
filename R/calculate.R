@@ -64,9 +64,11 @@ PIM = function(bsData,
 #' Helper function to get the relative proportion of flagged sites for a
 #' single sample versus all other samples
 #'
-#' @param sampleName The sample (which should specify a name in the
+#' @param sampleBaseline The sample (which should specify a name in the
 #' bisulfite sequencing data) to use as the baseline
 #' the proportion of sites for.
+#' @param sampleRelative The sample to compare relatively to the baseline sample for
+#' the proportion of sites.
 #' @param bsData Bisulfite sequencing data for multiple samples; a BSDT
 #' (bisulfite data.table) that has been split with splitDataTable
 #' (so, a list of BSDTs); one corresponds to each sample to test.
@@ -91,34 +93,30 @@ PIM = function(bsData,
 #'@return A vector of the same length as the number of samples being
 #' analyzed; each element in the vector represents the the proportion of
 #' intermediate methylation relative to the other samples for a single sample
-calculateRPIM = function(sampleName,
-                            bsData,
-                            cacheDir = getOption("RESOURCES.RCACHE"),
-                            imLower = .25,
-                            imUpper = .75,
-                            confLevel = .95) {
+calculateRPIM = function(sampleBaseline,
+                        sampleRelative,
+                        bsData,
+                        cacheDir=getOption("RESOURCES.RCACHE"),
+                        imLower=.25,
+                        imUpper=.75,
+                        confLevel=.95) {
 
-    message(sampleName)
+    message(paste0(sampleBaseline, " to ", sampleRelative))
 
-    sampleBaseline = prepIM(bsData[[sampleName]],
-                            cacheDir = cacheDir,
-                            imLower = imLower,
-                            imUpper = imUpper,
-                            confLevel = confLevel)
 
-    result = vector()
+    sampleBaseline = prepIM(bsData[[sampleBaseline]],
+                            cacheDir=cacheDir,
+                            imLower=imLower,
+                            imUpper=imUpper,
+                            confLevel=confLevel)
 
-    for (y in names(bsData)) {
+    sampleRelative = prepIM(bsData[[sampleRelative]],
+                            cacheDir=cacheDir,
+                            imLower=imLower,
+                            imUpper=imUpper,
+                            confLevel=confLevel)
 
-        sampleRelative = prepIM(bsData[[y]],
-                                cacheDir = cacheDir,
-                                imLower = imLower,
-                                imUpper = imUpper,
-                                confLevel = confLevel)
-
-        result[y] = merge(sampleBaseline, sampleRelative)[,log(sum(IM.x/.N)/sum(IM.y/.N))]
-
-    }
+    result = merge(sampleBaseline, sampleRelative)[,log(sum(IM.x/.N)/sum(IM.y/.N))]
 
     return(result)
 
@@ -160,6 +158,7 @@ calculateRPIM = function(sampleName,
 #'RPIM(BSDTlist)
 #'RPIM(BSDTlist, imLower=.2, imUpper=.8)
 #'}
+#' @importFrom utils combn
 #' @export
 RPIM = function(bsData,
                 cacheDir=getOption("RESOURCES.RCACHE"),
@@ -177,16 +176,37 @@ RPIM = function(bsData,
 
     }
 
-    x = sapply(names(bsData),
-                calculateRPIM,
-                bsData,
-                cacheDir,
-                imLower,
-                imUpper,
-                confLevel)
+    mysamples = names(bsData)
 
-    diag(x) = NA
+    allcomb = t(combn(mysamples,2))
 
-    colMeans(x, na.rm=TRUE)
+    revcomb = t(apply(allcomb,1,rev))
+
+    res = combn(mysamples,
+                2,
+                simplify=TRUE,
+                FUN=function(x) calculateRPIM(sampleBaseline=x[1], sampleRelative=x[2], bsData=bsData, cacheDir=cacheDir))
+
+    allcomb = cbind(allcomb,res)
+
+    revcomb = cbind(revcomb,-res)
+
+    bothcomb = rbind(allcomb,revcomb)
+
+    ref = expand.grid(V1=mysamples,V2=mysamples, stringsAsFactors=FALSE)
+
+    allres = merge(ref,bothcomb,all=TRUE,stringsAsFactors=FALSE)
+
+    allres = apply(allres, 2, as.character)
+
+    vals = as.numeric(allres[,3])
+
+    dim(vals) = rep(length(mysamples),2)
+
+    colnames(vals) = sort(mysamples)
+
+    rownames(vals) = sort(mysamples)
+
+    colMeans(vals, na.rm=TRUE)[mysamples]
 
 }
