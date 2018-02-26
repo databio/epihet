@@ -125,7 +125,7 @@ Note that the `simpleCache()` creates a directory to store cached data. In this 
 
 [^1]: Matt Dowle and Arun Srinivasan (2017). data.table: Extension of `data.frame`. R package version 1.10.4. https://CRAN.R-project.org/package=data.table
 
-[^2]: Sheffield NC, Bock C and Lawson J (2017). _DNA methylation heterogeneity defines a disease spectrum in Ewing sarcoma_. R package version 0.99.5, <URL: http://databio.org/mira>.
+[^2]: Lawson J, Tomazou E, Bock C and Sheffield NC (2018). _MIRA: An R package for DNA methylation-based inference of regulatory activity_. R package version 0.99.95, <URL: http://databio.org/mira>.
 
 [^3]: Hansen KD, Langmead B and Irizarry RA (2012). “BSmooth: from whole genome bisulfite sequencing reads to differentially methylated regions.” Genome Biology, 13(10), pp. R83. doi: 10.1186/gb-2012-13-10-r83.
 
