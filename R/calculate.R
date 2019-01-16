@@ -1,5 +1,5 @@
 #' Given bisulfite sequencing data, calculates the proportion
-#' of intermediate methylation sites.
+#' of intermediate methylation sites
 #'
 #' @param bsData Bisulfite sequencing data;
 #' @param cacheDir If using caching, this argument specifies the directory to
