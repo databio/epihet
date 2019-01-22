@@ -29,6 +29,6 @@ Suggests:
     devtools
 Enhances:
     simpleCache
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.0.9000
 VignetteBuilder: knitr
 biocViews: DNAMethylation, MethylSeq, Epigenetics, Coverage, Sequencing, Bayesian
