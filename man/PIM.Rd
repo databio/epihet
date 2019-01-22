@@ -3,7 +3,7 @@
 \name{PIM}
 \alias{PIM}
 \title{Given bisulfite sequencing data, calculates the proportion
-of intermediate methylation sites.}
+of intermediate methylation sites}
 \usage{
 PIM(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = 0.25,
   imUpper = 0.75, confLevel = 0.95)
@@ -36,7 +36,7 @@ A single value (numeric vector of length 1) indicating the proportion
 }
 \description{
 Given bisulfite sequencing data, calculates the proportion
-of intermediate methylation sites.
+of intermediate methylation sites
 }
 \examples{
 
