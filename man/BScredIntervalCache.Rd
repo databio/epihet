@@ -5,7 +5,8 @@
 \title{Get credibility interval via binomial bayes distribution and caching}
 \usage{
 BScredIntervalCache(bsData, cachedBinomialIntervals,
-  methylCol = "methylCount", coverageCol = "coverage", confLevel = 0.95)
+  methylCol = "methylCount", coverageCol = "coverage",
+  confLevel = 0.95)
 }
 \arguments{
 \item{bsData}{Bisulfite sequencing data}
