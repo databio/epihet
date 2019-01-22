@@ -4,8 +4,8 @@
 \alias{prepIM}
 \title{Prepares the intermediate methylation (IM) table}
 \usage{
-prepIM(bsData, cacheDir = getOption("RESOURCES.RCACHE"), imLower = 0.25,
-  imUpper = 0.75, confLevel = 0.95)
+prepIM(bsData, cacheDir = getOption("RESOURCES.RCACHE"),
+  imLower = 0.25, imUpper = 0.75, confLevel = 0.95)
 }
 \arguments{
 \item{bsData}{Bisulfite sequencing data}
