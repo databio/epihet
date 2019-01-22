@@ -3,7 +3,6 @@
 \docType{package}
 \name{RPIM}
 \alias{RPIM}
-\alias{RPIM}
 \alias{RPIM-package}
 \title{Calculate the relative proportion of intermediate methylation (RPIM) score.}
 \usage{
@@ -41,8 +40,6 @@ A named vector of the same length as the number of samples being
     samples are represented and elements named accordingly
 }
 \description{
-Calculate the relative proportion of intermediate methylation (RPIM) score.
-
 Provides a score called PIM that measures the epigenetic heterogeneity in a
     bisulfite sequencing sample. Under the assumption that a homogeneous
     sample will have mostly CpGs with either 100% or 0% DNA methylation, it
