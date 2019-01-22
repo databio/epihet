@@ -4,8 +4,8 @@
 \alias{BScredInterval}
 \title{Get credibility interval via binomial bayes distribution}
 \usage{
-BScredInterval(bsData, methylCol = "methylCount", coverageCol = "coverage",
-  confLevel = 0.95)
+BScredInterval(bsData, methylCol = "methylCount",
+  coverageCol = "coverage", confLevel = 0.95)
 }
 \arguments{
 \item{bsData}{Bisulfite sequencing data}
