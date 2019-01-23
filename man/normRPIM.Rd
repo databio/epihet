@@ -21,15 +21,15 @@ provide one}
 while creating cached the binomial bayes credibility interval; default is
 .95 for 95 percent confidence}
 
-\item{sdNorm}{A decimal indicating the standard deviation of the normal 
-distribution density function used for score weighting (the CpGs 
-with 50% methylation get always highest weight indicationg highest 
+\item{sdNorm}{A decimal indicating the standard deviation of the normal
+distribution density function used for score weighting (the CpGs
+with 50% methylation get always highest weight indicationg highest
 heterogeneity, a low sdNorm gives a steeper weighting function which
-gives only samples close to 50% methylation level high score); 
+gives only samples close to 50% methylation level high score);
 default is 0.13}
 
-\item{samplingRate}{An integer deciding how finely are the generated 
-density distributions sampled (how many points do we get in the 
+\item{samplingRate}{An integer deciding how finely are the generated
+density distributions sampled (how many points do we get in the
 interval 0-1 for each distribution); default is 100}
 }
 \value{
